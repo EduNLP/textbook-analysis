@@ -11,7 +11,7 @@ First, download this repository by running the following in the Terminal:
 
 # Data Format
 
-First, prepare your data such that each textbook is in a separate text file (simple `.txt`), in the same directory. Perform any clean-ups that you think might be necessary (e.g. removing characters that you do not want, or remove lines that are short).
+First, prepare your data such that each textbook is in a separate text file (simple `.txt`), in the same directory. Perform any clean-ups that you think might be necessary (e.g. removing characters that you do not want, remove short lines, etc.).
 
 # Counting the mentions of people
 
@@ -33,6 +33,8 @@ We include a `people_terms` file in `people_terms.csv`, but you can replace it w
 > african american,african american
 > latina,latinx
 > latina,woman
+
+@lucy: can you make the above script run for bigrams?
 
 An output file `people_mentions.csv` will be generated in the output directory. The file will have the following columns: 
 
@@ -56,8 +58,37 @@ The output file will be a `.csv`, where the first colum is the name of the perso
 
 # Looking at how people are described
 
-# Measuring topic prominence and their associations with people
+## Verbs and Adjectives (@lucy)
+One way to understand how people are described is to look at the verbs and adjectives that they co-occur with. For this, you first need to run dependency parsing. You can run the following script, where the format of the `people_terms` file should be the way it is described above.
 
+> todo: single line script, args: input directory, output_directoy, people_terms file
+
+This script will output `people_descriptors.csv` in the output directory, with the following columns:
+
+* `source_text`: The name of the text file (corresponding to a textbook, for example). 
+* `people_term`: The specific people term.
+* `demographic`: The demographic category. 
+* `word`: The verb / adjective.
+* `count`: The frequency of the particular word occurring with the particular people term (if a verb, this is counted separately for SUBJ and OBJ).
+* `POS`: The part of speech tag for the word (ADJ or VERB).
+* `relation`: If the word is a verb, indicate whether the people term is the subject of the verb (SUBJ) or the object of the verb (OBJ).
+
+## Measure association between words (@dora)
+Another way to measure association between words is to represent words as vectors and look at their distance in the vector space. For this, you first need to create vectors for the words in your text. You can do so by running the following script (note that this will take a while, depending on your data size and number of runs you want to do). 
+
+> todo: single line script, args: input text file, output directory, number of runs, (add other args potentially)
+
+This script will create model files ...
+
+Get most closely associated word with a particular group.
+
+> todo: single line script, args: model dir, list of words
+
+Get similarity between two sets of words:
+
+> todo: single line script, args: model dir, 1st list of words, 2nd list of words
+
+# Measuring topic prominence and their associations with people
 
 
 
