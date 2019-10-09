@@ -9,7 +9,7 @@ First, download this repository by running the following in the Terminal:
 `git clone https://github.com/ddemszky/textbook-analysis.git`
 
 
-# Data Format
+## Data Format
 
 First, prepare your data such that each textbook is in a separate text file (simple `.txt`), in the same directory. Perform any clean-ups that you think might be necessary (e.g. removing characters that you do not want, remove short lines, etc.).
 
@@ -73,6 +73,24 @@ This script will output `people_descriptors.csv` in the output directory, with t
 * `POS`: The part of speech tag for the word (ADJ or VERB).
 * `relation`: If the word is a verb, indicate whether the people term is the subject of the verb (SUBJ) or the object of the verb (OBJ).
 
+## Power, Agency and Sentiment (@lucy)
+
+To estimate the association between groups and (todo: add more text). 
+
+> todo: explain how to download NRC and add single line script that processes it
+
+> todo:  explain how to download Connotation Frames and add single line script that processes it
+
+> todo: single line script, args: people_descriptors file (generated above), connotation frames dict, nrc dict (it can be just one, too), output file
+
+The script outputs a csv file in the output directory, called `power_agency_sentiment.csv`, with the following columns:
+
+* `source_text`: The name of the text file (corresponding to a textbook, for example).
+* `demographic`: The demographic category. 
+* `dimension`: Name of the dimension.
+* `score`: Score for the particular dimension.
+
+
 ## Measure association between words (@dora)
 Another way to measure association between words is to represent words as vectors and look at their distance in the vector space. For this, you first need to create vectors for the words in your text. You can do so by running the following script (note that this will take a while, depending on your data size and number of runs you want to do). 
 
@@ -88,7 +106,27 @@ Get similarity between two sets of words:
 
 > todo: single line script, args: model dir, 1st list of words, 2nd list of words
 
-# Measuring topic prominence and their associations with people
+# Measuring topic prominence and their associations with people (@dora)
+
+To induce topics in your data, you first need to run a topic model. Our script runs LDA, using the very efficient MALLET package. In order to run this, you first need to download MALLET, by running the following command:
+
+> todo: add mallett download script
+
+The following script runs the topic model:
+
+> todo: add topic modeling script, that also calculates the prominence of each topic
+
+You can inspect the resulting topics by looking at the following files: . You can also look at their prominence in the following files:.
+
+To measure the association between groups and particular topics, run:
+
+> todo: add script, args: topic words file, words indicating groups
+
+
+
+
+
+
 
 
 
