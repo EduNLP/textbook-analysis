@@ -13,7 +13,7 @@ First, download this repository by running the following in the Terminal:
 
 First, prepare your data such that each textbook is in a separate text file (simple `.txt`), in the same directory. Perform any clean-ups that you think might be necessary (e.g. removing characters that you do not want, remove short lines, etc.).
 
-# Counting the mentions of people
+# Counting the Mentions of People
 
 ## Pre-processing (TODO: @dora)
 
@@ -21,7 +21,7 @@ In order to count the number of times people are mentioned, it's important to fi
 
 > todo: add a single line script to run coref, args: input directory (for all txt files), output directory (for all txt files)
 
-## Counting the mentions of demographic groups (TODO: @lucy)
+## Counting the Mentions of Demographic Groups (TODO: @lucy)
 
 To count the frequency of mentions for different groups of people (e.g. men vs women), run the following:
 
@@ -42,7 +42,7 @@ An output file `people_mentions.csv` will be generated in the output directory. 
 * `demographic`: The demographic category. 
 * `count`: The number of terms belonging to that demographic in the given source text.
 
-## Counting the mentions of named people (TODO: @lucy)
+## Counting the Mentions of Named People (TODO: @lucy)
 
 To count the frequency of mentions for named people (e.g. Eleanor Roosevelt), you first need to run Named Entity Recognition (NER). The following script will run NER on your files and it will also combine last names with the most recent full name in the data: 
 
@@ -56,7 +56,7 @@ If you would also like to obtain demographic information for the named individua
 
 The output file will be a `.csv`, where the first colum is the name of the person and the rest of the columns correspond to each of the demographic categories specified. If the person was not found in the database, or the category was not listed, the value will be empty.
 
-# Looking at how people are described
+# Looking at How People Are Described
 
 ## Verbs and Adjectives (TODO: @lucy)
 One way to understand how people are described is to look at the verbs and adjectives that they co-occur with. For this, you first need to run dependency parsing. You can run the following script, where the format of the `people_terms` file should be the way it is described above.
@@ -91,7 +91,7 @@ The script outputs a csv file in the output directory, called `power_agency_sent
 * `score`: Score for the particular dimension.
 
 
-## Measure association between words (TODO: @dora)
+## Measure Association Between Words (TODO: @dora)
 Another way to measure association between words is to represent words as vectors and look at their distance in the vector space. For this, you first need to create vectors for the words in your text. You can do so by running the following script (note that this will take a while, depending on your data size and number of runs you want to do). 
 
 > todo: single line script, args: input text file, output directory, number of runs, (add other args potentially)
@@ -106,7 +106,7 @@ Get similarity between two sets of words:
 
 > todo: single line script, args: model dir, 1st list of words, 2nd list of words
 
-# Measuring topic prominence and their associations with people (TODO: @dora)
+# Analyzing Topics (TODO: @dora)
 
 To induce topics in your data, you first need to run a topic model. Our script runs LDA, using the very efficient MALLET package. In order to run this, you first need to download MALLET, by running the following command:
 
@@ -116,7 +116,13 @@ The following script runs the topic model:
 
 > todo: add topic modeling script, that also calculates the prominence of each topic
 
-You can inspect the resulting topics by looking at the following files: . You can also look at their prominence in the following files:.
+You can inspect the resulting topics by looking at the following files: . 
+
+## Topic Prominence
+
+You can also look at their prominence in the following files:.
+
+## Diversity of Topics Associated with a Group
 
 To measure the association between groups and particular topics, run:
 
