@@ -73,6 +73,12 @@ This script will output `people_descriptors.csv` in the output directory, with t
 * `POS`: The part of speech tag for the word (ADJ or VERB).
 * `relation`: If the word is a verb, indicate whether the people term is the subject of the verb (SUBJ) or the object of the verb (OBJ).
 
+## Log odds ratio (TODO: @lucy)
+
+We can look at which words are significantly more associated with one group vs another group based on word counts. (todo: add citation)
+
+> todo: add one line script that calculates log odds based on a file that has word counts for the two groups
+
 ## Power, Agency and Sentiment (TODO: @lucy)
 
 To estimate the association between groups and (todo: add more text). 
