@@ -15,13 +15,13 @@ First, prepare your data such that each textbook is in a separate text file (sim
 
 # Counting the mentions of people
 
-## Pre-processing (@dora)
+## Pre-processing (TODO: @dora)
 
 In order to count the number of times people are mentioned, it's important to first run co-reference resolution on the data so that pronouns, for example, are substituted by the nouns that they refer to. 
 
 > todo: add a single line script to run coref, args: input directory (for all txt files), output directory (for all txt files)
 
-## Counting the mentions of demographic groups (@lucy)
+## Counting the mentions of demographic groups (TODO: @lucy)
 
 To count the frequency of mentions for different groups of people (e.g. men vs women), run the following:
 
@@ -42,7 +42,7 @@ An output file `people_mentions.csv` will be generated in the output directory. 
 * `demographic`: The demographic category. 
 * `count`: The number of terms belonging to that demographic in the given source text.
 
-## Counting the mentions of named people (@lucy)
+## Counting the mentions of named people (TODO: @lucy)
 
 To count the frequency of mentions for named people (e.g. Eleanor Roosevelt), you first need to run Named Entity Recognition (NER). The following script will run NER on your files and it will also combine last names with the most recent full name in the data: 
 
@@ -58,7 +58,7 @@ The output file will be a `.csv`, where the first colum is the name of the perso
 
 # Looking at how people are described
 
-## Verbs and Adjectives (@lucy)
+## Verbs and Adjectives (TODO: @lucy)
 One way to understand how people are described is to look at the verbs and adjectives that they co-occur with. For this, you first need to run dependency parsing. You can run the following script, where the format of the `people_terms` file should be the way it is described above.
 
 > todo: single line script, args: input directory, output_directoy, people_terms file
@@ -73,7 +73,7 @@ This script will output `people_descriptors.csv` in the output directory, with t
 * `POS`: The part of speech tag for the word (ADJ or VERB).
 * `relation`: If the word is a verb, indicate whether the people term is the subject of the verb (SUBJ) or the object of the verb (OBJ).
 
-## Power, Agency and Sentiment (@lucy)
+## Power, Agency and Sentiment (TODO: @lucy)
 
 To estimate the association between groups and (todo: add more text). 
 
@@ -91,7 +91,7 @@ The script outputs a csv file in the output directory, called `power_agency_sent
 * `score`: Score for the particular dimension.
 
 
-## Measure association between words (@dora)
+## Measure association between words (TODO: @dora)
 Another way to measure association between words is to represent words as vectors and look at their distance in the vector space. For this, you first need to create vectors for the words in your text. You can do so by running the following script (note that this will take a while, depending on your data size and number of runs you want to do). 
 
 > todo: single line script, args: input text file, output directory, number of runs, (add other args potentially)
@@ -106,7 +106,7 @@ Get similarity between two sets of words:
 
 > todo: single line script, args: model dir, 1st list of words, 2nd list of words
 
-# Measuring topic prominence and their associations with people (@dora)
+# Measuring topic prominence and their associations with people (TODO: @dora)
 
 To induce topics in your data, you first need to run a topic model. Our script runs LDA, using the very efficient MALLET package. In order to run this, you first need to download MALLET, by running the following command:
 
