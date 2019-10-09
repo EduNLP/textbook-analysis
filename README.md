@@ -21,7 +21,7 @@ In order to count the number of times people are mentioned, it's important to fi
 
 > todo: add a single line script to run coref, args: input directory (for all txt files), output directory (for all txt files)
 
-## Counting the mentions of groups, separated by demographic (@lucy)
+## Counting the mentions of demographic groups (@lucy)
 
 To count the frequency of mentions for different groups of people (e.g. men vs women), run the following:
 
@@ -40,6 +40,19 @@ An output file `people_mentions.csv` will be generated in the output directory. 
 * `demographic`: The demographic category. 
 * `count`: The number of terms belonging to that demographic in the given source text.
 
+## Counting the mentions of named people (@lucy)
+
+To count the frequency of mentions for named people (e.g. Eleanor Roosevelt), you first need to run Named Entity Recognition (NER). The following script will run NER on your files and it will also combine last names with the most recent full name in the data: 
+
+> todo: add a single line script, args: input directory, output directory
+
+This script will generate separate files for each textbook in the specified output directory, with counts of each named individual.
+
+If you would also like to obtain demographic information for the named individuals automatically, you can run the following script. This script builds on Wikidata, which has a lot of missing information (e.g. it usually doesn't specify race for white people), but it has high coverage of gender information, for example. The `input_file` should be a list of named individuals, separated by newlines (@lucy: should it be full names, with middle names, or can you standardize automatically?). The argument `demographic_categories` should be a list of categories that you are interested in. The available categories are: `gender`, `ethnicity`, `occupation` (@lucy?).
+
+> todo: add a single line script, args: input file, output file demographic categories
+
+The output file will be a `.csv`, where the first colum is the name of the person and the rest of the columns correspond to each of the demographic categories specified. If the person was not found in the database, or the category was not listed, the value will be empty.
 
 # Looking at how people are described
 
