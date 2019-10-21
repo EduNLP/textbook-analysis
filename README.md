@@ -125,7 +125,7 @@ Another way to measure association between words is to represent words as **vect
 python run_word2vec.py --input_dir data/final_txts --output_dir data/word2vec_models \
 --num_runs 50 --dim 100 --bootstrap
 ```
-The script will create separate model files for each training run in the output directory.
+The `input_dir` argument should be a directory that includes the txt files. The script will create separate model files for each training run in `output_dir`. 
 
 By default, the script runs 50 separate bootstrap training runs -- this means that we sample from the sentences with replacement each time we train the model. This method, as found by [Antoniak and Mimno (2018)](https://mimno.infosci.cornell.edu/info3350/readings/antoniak.pdf), ensures that we can measure word associations robustly, and calculate significance values. You can decrease the number of runs. If you do not want to use bootstrapping, you can set the number of runs to 1 and remove the `--bootstrap` argument.
 
@@ -133,11 +133,15 @@ You can also change dimension size of the embeddings (by default, it's set to 10
 
 Get most closely associated word with a particular group.
 
-> todo: single line script, args: model dir, list of words
+```
+python word2vec_get_closest.py --words woman,women,she,her,hers --model_dir data/word2vec_models
+```
 
 Get similarity between two sets of words:
 
-> todo: single line script, args: model dir, 1st list of words, 2nd list of words
+```
+python word2vec_calculate_similarity.py --words1 woman,women,she,her,hers --words2 home,children,family --model_dir data/word2vec_models
+```
 
 # Analyzing Topics (TODO: @dora)
 
