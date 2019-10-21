@@ -119,11 +119,16 @@ The script outputs a csv file in the output directory, called `power_agency_sent
 
 
 ## Measure Association Between Words (TODO: @dora)
-Another way to measure association between words is to represent words as vectors and look at their distance in the vector space. For this, you first need to create vectors for the words in your text. You can do so by running the following script (note that this will take a while, depending on your data size and number of runs you want to do). 
+Another way to measure association between words is to represent words as **vectors** and look at their distance in the vector space. For this, you first need to create vectors for the words in your text. You can do so by running the following script. Note that this will take a while, depending on your data size and number of runs you want to do.
 
-> todo: single line script, args: input text file, output directory, number of runs, (add other args potentially)
+```
+python run_word2vec.py --input_dir data/final_txts --output_dir data/word2vec_models --num_runs 50 --dim 100 --bootstrap
+```
+The script will create separate model files for each training run in the output directory.
 
-This script will create model files ...
+By default, the script runs 50 separate bootstrap training runs -- this means that we sample from the sentences with replacement each time we train the model. This method, as found by [Antoniak and Mimno (2018)](https://mimno.infosci.cornell.edu/info3350/readings/antoniak.pdf), ensures that we can measure word associations robustly, and calculate significance values. You can decrease the number of runs. If you do not want to use bootstrapping, you can set the number of runs to 1 and remove the `--bootstrap` argument.
+
+You can also change dimension size of the embeddings (by default, it's set to 100). If you decrease it, you *might* get slightly lower quality embeddings but they will take up less space. If you increase it, you *might* get embeddings that capture more subtle semantics, but they will take up more space.
 
 Get most closely associated word with a particular group.
 
