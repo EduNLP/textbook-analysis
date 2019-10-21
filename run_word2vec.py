@@ -18,6 +18,8 @@ parser.add_argument('--num_runs', default=50, type=int, help="Number of word2vec
 parser.add_argument('--dim', default=100, type=int, help="Dimensionality of embeddings.")
 parser.add_argument('--window', default=5, type=int, help="Window size for word2vec.")
 parser.add_argument('--stem', action='store_true', help="Whether to stem words (in the paper, we don't).")
+parser.add_argument('--bootstrap', action='store_true', help="Whether to bootstrap sample from sentences in the data "
+                                                             "(in the paper, we do).")
 
 args = parser.parse_args()
 
@@ -67,7 +69,7 @@ def run_on_all_books(books, bootstrap=True):
 def main():
     books = get_book_txts(args.input_dir, splitlines=False)
     os.makedirs(args.output_dir, exist_ok=True)
-    run_on_all_books(books)
+    run_on_all_books(books, args.bootstrap)
 
 
 if __name__ == '__main__':
