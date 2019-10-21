@@ -4,13 +4,12 @@ Code for the paper "Content Analysis of Textbooks via Natural Language Processin
 
 This script is for those who would like to perform analyses on their own textbook data (or any other data), to better understand the representation of minorities and women in text. These scripts should be very easy to use, so you **do not need any technical background** to run these analyses. See our paper for a more detailed description of each method.
 
-First, download this repository by running the following in the Terminal:
+First, download this repository by running the following in the Terminal and then enter the directory:
 
-`git clone https://github.com/ddemszky/textbook-analysis.git`
-
-Then, go into the directory:
-
-`cd textbook-analysis`
+```
+git clone https://github.com/ddemszky/textbook-analysis.git
+cd textbook-analysis
+```
 
 Create and activate virtual environment:
 
@@ -33,11 +32,15 @@ First, prepare your data such that each textbook is in a separate text file (sim
 
 # Counting the Mentions of People
 
-## Pre-processing (TODO: @dora)
+## Pre-processing
 
-In order to count the number of times people are mentioned, it's important to first run co-reference resolution on the data so that pronouns, for example, are substituted by the nouns that they refer to. 
+In order to count the number of times people are mentioned, it's important to first run co-reference resolution on the data so that pronouns, for example, are substituted by the nouns that they refer to. Run the script below, replacing the input and output directories with your paths.
 
-> todo: add a single line script to run coref, args: input directory (for all txt files), output directory (for all txt files)
+```
+python run_coref.py --input_dir data/source_txts --output_dir data/coref_resolved_txts
+```
+
+Note that this script may take a while to run on large files. It took ~1hr on our 15 textbooks, using my local machine.
 
 ## Counting the Mentions of Demographic Groups (TODO: @lucy)
 
