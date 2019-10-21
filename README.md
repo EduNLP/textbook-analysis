@@ -22,8 +22,8 @@ source env/bin/activate
 Install all required packages:
 
 ```
-python -m spacy download en  # install SpaCy
 pip install -r requirements.txt
+python -m spacy download en_core_web_sm  # install SpaCy models for English
 ```
 
 
