@@ -8,6 +8,19 @@ First, download this repository by running the following in the Terminal:
 
 `git clone https://github.com/ddemszky/textbook-analysis.git`
 
+Then, go into the directory:
+
+`cd textbook-analysis`
+
+Create and activate virtual environment:
+
+`virtualenv env`
+`source env/bin/activate`
+
+Install all required packages:
+
+`pip install -r requirements.txt`
+
 
 ## Data Format
 
