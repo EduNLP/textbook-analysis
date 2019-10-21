@@ -8,6 +8,24 @@ First, download this repository by running the following in the Terminal:
 
 `git clone https://github.com/ddemszky/textbook-analysis.git`
 
+Then, go into the directory:
+
+`cd textbook-analysis`
+
+Create and activate virtual environment:
+
+```
+virtualenv -p python3 env
+source env/bin/activate
+```
+
+Install all required packages:
+
+```
+pip install -r requirements.txt
+python -m spacy download en_core_web_sm  # install SpaCy models for English
+```
+
 
 ## Data Format
 
