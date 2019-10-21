@@ -1,0 +1,7 @@
+{
+  "home": ["home", "domestic", "household", "chores", "family"],
+  "work": ["work", "labor", "workers", "economy", "trade", "business",
+           "jobs", "company", "industry", "pay", "working", "salary", "wage"],
+  "achievement": ["power", "authority", "achievement", "control", "took control",
+                  "won", "powerful", "success", "better", "efforts", "plan", "tried", "leader"],
+}

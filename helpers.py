@@ -7,6 +7,7 @@ import string
 from nltk.corpus import stopwords
 import nltk
 import re
+from gensim.models import KeyedVectors
 
 stopwords = set(stopwords.words('english')) | {'could', 'should', 'would', 'shall', 'must', 'may', 'many', 'most'}
 punct_chars = list((set(string.punctuation) | {'»', '–', '—', '-',"­", '\xad', '-', '◾', '®', '©','✓','▲', '◄','▼','►', '~', '|', '“', '”', '…', "'", "`", '_', '•', '*', '■'} - {"'"}))
@@ -53,3 +54,8 @@ def get_book_txts(path, splitlines=False):
         books[title] = txt
         print(title)
     return books
+
+def get_models(filelist):
+    model_files = [f for f in filelist if f.endswith('.wv')]
+    models = [KeyedVectors.load(fname, mmap='r') for fname in model_files]
+    return models

@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Author: Dora Demszky (ddemszky@stanford.edu)
-from gensim.models import KeyedVectors
 import argparse
 import os
 import numpy as np
+from helpers import *
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--input_file', default=None, help="Text file with input words.")
@@ -12,12 +12,6 @@ parser.add_argument('--words', default=None, help="Comma-separated list of input
 parser.add_argument('--word2vec_dir', required=True, help="Directory for model output.")
 
 args = parser.parse_args()
-
-
-def get_models(filelist):
-    model_files = [f for f in filelist if f.endswith('.wv')]
-    models = [KeyedVectors.load(fname, mmap='r') for fname in model_files]
-    return models
 
 def get_closest(queries, models, vocab, idx2word):
     cosines = []
