@@ -131,17 +131,44 @@ By default, the script runs 50 separate bootstrap training runs -- this means th
 
 You can also change dimension size of the embeddings (by default, it's set to 100). If you decrease it, you *might* get slightly lower quality embeddings but they will take up less space. If you increase it, you *might* get embeddings that capture more subtle semantics, but they will take up more space.
 
-Get most closely associated word with a particular group.
+To get the most closely associated word with a particular group, run the following script. Here, `words` is the comma-separated list of seed words that refer to that group or concept. The script will print out the top closest words and their mean cosine similarity across all model runs.
 
 ```
-python word2vec_get_closest.py --words woman,women,she,her,hers --model_dir data/word2vec_models
+python word2vec_get_closest.py --words woman,women,she,her,hers --word2vec_dir data/word2vec_models
 ```
 
-Get similarity between two sets of words:
+If you want to compare the similarity of words from various topics to two sets of terms (e.g. terms referring to men vs women), follow the following steps:
+
+1. Create a dictionary file of terms referring to different themes, such as the one in `wordlists/liwc_queries.json`, in the following format. If you only have one category, that's fine too, but you still need to follow the same format. 
 
 ```
-python word2vec_calculate_similarity.py --words1 woman,women,she,her,hers --words2 home,children,family --model_dir data/word2vec_models
+{
+  "home": ["home", "domestic", "household", "chores", "family"],
+  "work": ["work", "labor", "workers", "economy", "trade", "business",
+           "jobs", "company", "industry", "pay", "working", "salary", "wage"],
+  "achievement": ["power", "authority", "achievement", "control", "took control",
+                  "won", "powerful", "success", "better", "efforts", "plan", "tried", "leader"],
+}
 ```
+2. Create two lists of words, one for one group of interest (e.g. women) and the other for the other group of interest (e.g. men). You can see examples in `wordlist/woman_terms.txt` and `wordlist/man_terms.txt`.
+
+3. Run the following script, substituting the file references with your own paths. Change the arguments for `--name1` and `--name2` with your group names.
+
+```
+python word2vec_calculate_similarity.py --queries wordlists/liwc_queries.json \
+--words1 wordlists/woman_terms.txt --words2 wordlists/man_terms.txt \
+--name1 Women --name2 Men --word2vec_dir data/word2vec_models \
+--output_file results/word2vec_cosines.csv
+```
+
+The script will save a dataframe in the file specified by `--output_file`, with the following columns:
+
+* `<name1>`: Mean cosine similarity of query word to words in group 1.
+* `<name2>`: Mean cosine similarity of query word to words in group 2.
+* `query`: Query word.
+* `word category`: Category that word belongs to.
+* `p value`: *p* value for cosine similarity, calculated using two-tailed t test.
+
 
 # Analyzing Topics (TODO: @dora)
 
