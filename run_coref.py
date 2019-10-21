@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Author: Dora Demszky (ddemszky@stanford.edu)
 from helpers import *
 import spacy
 import neuralcoref
