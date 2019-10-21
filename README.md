@@ -36,7 +36,9 @@ First, prepare your data such that each textbook is in a separate text file (sim
 
 In order to count the number of times people are mentioned, it's important to first run co-reference resolution on the data so that pronouns, for example, are substituted by the nouns that they refer to. Run the script below, replacing the input and output directories with your paths.
 
-`python run_coref.py --input_dir data/source_txts --output_dir data/coref_resolved_txts`
+```
+python run_coref.py --input_dir data/source_txts --output_dir data/coref_resolved_txts
+```
 
 Note that this script may take a while to run on large files. It took ~1hr on our 15 textbooks, using my local machine.
 
