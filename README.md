@@ -15,6 +15,7 @@ Then, go into the directory:
 Create and activate virtual environment:
 
 `virtualenv env`
+
 `source env/bin/activate`
 
 Install all required packages:
