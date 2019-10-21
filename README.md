@@ -4,13 +4,12 @@ Code for the paper "Content Analysis of Textbooks via Natural Language Processin
 
 This script is for those who would like to perform analyses on their own textbook data (or any other data), to better understand the representation of minorities and women in text. These scripts should be very easy to use, so you **do not need any technical background** to run these analyses. See our paper for a more detailed description of each method.
 
-First, download this repository by running the following in the Terminal:
+First, download this repository by running the following in the Terminal and then enter the directory:
 
-`git clone https://github.com/ddemszky/textbook-analysis.git`
-
-Then, go into the directory:
-
-`cd textbook-analysis`
+```
+git clone https://github.com/ddemszky/textbook-analysis.git
+cd textbook-analysis
+```
 
 Create and activate virtual environment:
 
