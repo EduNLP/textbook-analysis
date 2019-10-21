@@ -118,11 +118,12 @@ The script outputs a csv file in the output directory, called `power_agency_sent
 * `score`: Score for the particular dimension.
 
 
-## Measure Association Between Words (TODO: @dora)
+## Measure Association Between Words via Word Embeddings
 Another way to measure association between words is to represent words as **vectors** and look at their distance in the vector space. For this, you first need to create vectors for the words in your text. You can do so by running the following script. Note that this will take a while, depending on your data size and number of runs you want to do.
 
 ```
-python run_word2vec.py --input_dir data/final_txts --output_dir data/word2vec_models --num_runs 50 --dim 100 --bootstrap
+python run_word2vec.py --input_dir data/final_txts --output_dir data/word2vec_models \
+--num_runs 50 --dim 100 --bootstrap
 ```
 The script will create separate model files for each training run in the output directory.
 
