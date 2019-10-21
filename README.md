@@ -33,11 +33,11 @@ First, prepare your data such that each textbook is in a separate text file (sim
 
 # Counting the Mentions of People
 
-## Pre-processing (TODO: @dora)
+## Pre-processing
 
-In order to count the number of times people are mentioned, it's important to first run co-reference resolution on the data so that pronouns, for example, are substituted by the nouns that they refer to. 
+In order to count the number of times people are mentioned, it's important to first run co-reference resolution on the data so that pronouns, for example, are substituted by the nouns that they refer to. Run the script below, replacing the input and output directories with your paths.
 
-> todo: add a single line script to run coref, args: input directory (for all txt files), output directory (for all txt files)
+`python run_coref.py --input_dir data/source_txts --output_dir data/coref_resolved_txts
 
 ## Counting the Mentions of Demographic Groups (TODO: @lucy)
 
