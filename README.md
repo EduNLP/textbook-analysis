@@ -14,7 +14,7 @@ Then, go into the directory:
 
 Create and activate virtual environment:
 
-`virtualenv env`
+`virtualenv -p python3 env`
 
 `source env/bin/activate`
 
