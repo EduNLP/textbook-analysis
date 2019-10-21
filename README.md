@@ -14,13 +14,17 @@ Then, go into the directory:
 
 Create and activate virtual environment:
 
-`virtualenv -p python3 env`
-
-`source env/bin/activate`
+```
+virtualenv -p python3 env
+source env/bin/activate
+```
 
 Install all required packages:
 
-`pip install -r requirements.txt`
+```
+python -m spacy download en  # install SpaCy
+pip install -r requirements.txt
+```
 
 
 ## Data Format
