@@ -44,16 +44,21 @@ Note that this script may take a while to run on large files. It took ~1hr on ou
 
 ## Counting the Mentions of Demographic Groups (TODO: @lucy)
 
-To count the frequency of mentions for different groups of people (e.g. men vs women), run the following:
+To count the frequency of mentions for different groups of people (e.g. different genders), run the following:
 
-> todo: add a single line script, args: input directory, output directory, people_terms file
+```
+python count_mentions.py --input_dir data/coref_resolved_txts --output_dir results/ --people_terms wordlists/people_terms.csv
+```
 
-We include a `people_terms` file in `people_terms.csv`, but you can replace it with your own file. The format of this file should be the following: it should have 2 columns separated by a comma, the first including a word / phrase referring to people (lowercase) and the second should be the demographic group that the word / phrase belongs to. If a word belongs to multiple demographic groups, then add that as a separate line. For example:
+We include a `people_terms` file in `people_terms.csv`, but you can replace it with your own file. The format of this file should be the following: it should have 3 columns separated by a comma, the first including a word / phrase referring to people (lowercase), the second should be the demographic group that the word / phrase belongs to, and the third is the type of demographic. If a word belongs to multiple demographic groups, then add that as a separate line. For example:
 
-> maid,woman
-> african american,african american
-> latina,latinx
-> latina,woman
+> maid,woman,gender
+
+> african,black,race/ethnicity
+
+> latina,latinx,race/ethnicity
+
+> latina,woman,gender
 
 @lucy: can you make the above script run for bigrams?
 
@@ -65,24 +70,30 @@ An output file `people_mentions.csv` will be generated in the output directory. 
 
 ## Counting the Mentions of Named People (TODO: @lucy)
 
-To count the frequency of mentions for named people (e.g. Eleanor Roosevelt), you first need to run Named Entity Recognition (NER). The following script will run NER on your files and it will also combine last names with the most recent full name in the data: 
+To count the frequency of mentions for named people (e.g. Eleanor Roosevelt), you first need to run Named Entity Recognition (NER). The following script will run NER on your files and it will also combine last names with the most recent full name in the data. It will also output a new dataset in `ner_dir` where named entities have standardized names, e.g. Franklin D. Roosevelt -> Franklin Delano Roosevelt. 
 
-> todo: add a single line script, args: input directory, output directory
+```
+python count_names.py --input_dir data/coref_resolved_txts --ner_dir data/ner_coref_txts --output_dir results/named_people
+```
 
 This script will generate separate files for each textbook in the specified output directory, with counts of each named individual.
 
-If you would also like to obtain demographic information for the named individuals automatically, you can run the following script. This script builds on Wikidata, which has a lot of missing information (e.g. it usually doesn't specify race for white people), but it has high coverage of gender information, for example. The `input_file` should be a list of named individuals, separated by newlines (@lucy: should it be full names, with middle names, or can you standardize automatically?). The argument `demographic_categories` should be a list of categories that you are interested in. The available categories are: `gender`, `ethnicity`, `occupation` (@lucy?).
+If you would also like to obtain demographic information for the named individuals automatically, you can run the following script. This script builds on Wikidata, which has a lot of missing information (e.g. it usually doesn't specify race for white people), but it has high coverage of gender information, for example. The input should be the output of `count_names.py`. Names will be matched based on Wikidata aliases. 
 
-> todo: add a single line script, args: input file, output file demographic categories
+```
+python get_wikidata_attributes.py --input_dir results/named_people --output_dir results/ 
+```
 
-The output file will be a `.csv`, where the first colum is the name of the person and the rest of the columns correspond to each of the demographic categories specified. If the person was not found in the database, or the category was not listed, the value will be empty.
+The output file will be a `.csv`, where the first colum is the name of the person and the rest of the columns correspond to attributes, including `gender`, `race/ethnicity`, and `occupation`. If the person was not found in the database, or the category was not listed, the value will be empty.
 
 # Looking at How People Are Described
 
 ## Verbs and Adjectives (TODO: @lucy)
-One way to understand how people are described is to look at the verbs and adjectives that they co-occur with. For this, you first need to run dependency parsing. You can run the following script, where the format of the `people_terms` file should be the way it is described above.
+One way to understand how people are described is to look at the verbs and adjectives that they co-occur with. For this, you first need to run dependency parsing. You can run the following script, where the format of the `people_terms` file should be the way it is described above. Our paper used Dozat et al. (2017)'s dependency parser. Since many of the other tools in this repo are based on SpaCy, the script we provide here uses SpaCy's dependency parser. 
 
-> todo: single line script, args: input directory, output_directoy, people_terms file
+```
+python get_descriptors.py --input_dir data/ner_coref_txts --output_dir results/ --people_terms wordlists/people_terms.csv
+```
 
 This script will output `people_descriptors.csv` in the output directory, with the following columns:
 
@@ -94,11 +105,15 @@ This script will output `people_descriptors.csv` in the output directory, with t
 * `POS`: The part of speech tag for the word (ADJ or VERB).
 * `relation`: If the word is a verb, indicate whether the people term is the subject of the verb (SUBJ) or the object of the verb (OBJ).
 
+Note that terms associated with multiple demographic categories would be listed multiple times. For example, "black woman" would be listed under both "black" and "women". 
+
 ## Log odds ratio (TODO: @lucy)
 
-We can look at which words are significantly more associated with one group vs another group based on word counts. (todo: add citation)
+We can look at which words are significantly more associated with one group vs another group based on word counts (Monroe et al. 2009). Right now this script operates differently depending on whether your `--focus_group` is a gender or race/ethnicity. If you input a gender (e.g. `women`), that gender is compared against other genders and terms unmarked by gender. If you input a racial/ethnic group (e.g. `black`), it is compared against white people and terms unmarked by race/ethnicity. 
 
-> todo: add one line script that calculates log odds based on a file that has word counts for the two groups
+```
+python run_log_odds.py --input_file results/people_descriptors.csv --output_dir results/ --focus_group women --people_terms wordlists/people_terms.csv
+```
 
 ## Power, Agency and Sentiment (TODO: @lucy)
 
@@ -116,6 +131,7 @@ The script outputs a csv file in the output directory, called `power_agency_sent
 * `demographic`: The demographic category. 
 * `dimension`: Name of the dimension.
 * `score`: Score for the particular dimension.
+* `confidence_interval`: 95% confidence interval for the score.
 
 
 ## Measure Association Between Words via Word Embeddings
