@@ -17,6 +17,28 @@ replace = re.compile('[%s]' % re.escape(punctuation))
 sno = nltk.stem.SnowballStemmer('english')
 printable = set(string.printable)
 
+def split_terms_into_sets(people_terms_path): 
+    '''
+    If the third column of the input file is "unmarked" then the word is unmarked
+    '''
+    possible_marks = set() 
+    not_marks = set() # everything else
+    with open(people_terms_path, 'r') as infile: 
+        for line in infile: 
+            contents = line.strip().split(',')
+            if contents[2] == 'unmarked': 
+                not_marks.add(contents[0].lower())
+            else: 
+                possible_marks.add(contents[0].lower())
+    return possible_marks, not_marks
+
+def get_word_to_category(people_terms_path): 
+    word2dem = {}
+    with open(people_terms_path, 'r') as infile: 
+        for line in infile: 
+            contents = line.strip().split(',')
+            word2dem[contents[0]] = contents[1]
+    return word2dem
 
 def clean_text(text, remove_stopwords=True, remove_numeric=True, stem=False, remove_short=True):
     # lower case

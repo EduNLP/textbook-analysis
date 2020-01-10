@@ -42,7 +42,7 @@ python run_coref.py --input_dir data/source_txts --output_dir data/coref_resolve
 
 Note that this script may take a while to run on large files. It took ~1hr on our 15 textbooks, using my local machine.
 
-## Counting the Mentions of Demographic Groups (TODO: @lucy)
+## Counting the Mentions of Demographic Groups 
 
 To count the frequency of mentions for different groups of people (e.g. different genders), run the following:
 
@@ -50,7 +50,7 @@ To count the frequency of mentions for different groups of people (e.g. differen
 python count_mentions.py --input_dir data/coref_resolved_txts --output_dir results/ --people_terms wordlists/people_terms.csv
 ```
 
-We include a `people_terms` file in `people_terms.csv`, but you can replace it with your own file. The format of this file should be the following: it should have 3 columns separated by a comma, the first including a word / phrase referring to people (lowercase), the second should be the demographic group that the word / phrase belongs to, and the third is the type of demographic. If a word belongs to multiple demographic groups, then add that as a separate line. For example:
+We include a `people_terms.csv` file in `wordlists`, but you can replace it with your own file. The format of this file should be the following: it should have 3 columns separated by a comma, the first including a word / phrase referring to people (lowercase), the second should be the demographic group that the word / phrase belongs to, and the third is the type of demographic. If a word belongs to multiple demographic groups, then add that as a separate line. For example:
 
 > maid,woman,gender
 
@@ -60,13 +60,15 @@ We include a `people_terms` file in `people_terms.csv`, but you can replace it w
 
 > latina,woman,gender
 
-@lucy: can you make the above script run for bigrams?
+Our script takes unmarked terms, such as *farmer*, and if they are modified by a marker such as *black farmer*, recategorizes the instance of *farmer* to the category *black*. 
 
 An output file `people_mentions.csv` will be generated in the output directory. The file will have the following columns: 
 
 * `source_text`: The name of the text file (corresponding to a textbook, for example). 
 * `demographic`: The demographic category. 
 * `count`: The number of terms belonging to that demographic in the given source text.
+
+TODO: the above script works for unigrams, but not yet for bigrams
 
 ## Counting the Mentions of Named People (TODO: @lucy)
 
@@ -89,7 +91,7 @@ The output file will be a `.csv`, where the first colum is the name of the perso
 # Looking at How People Are Described
 
 ## Verbs and Adjectives (TODO: @lucy)
-One way to understand how people are described is to look at the verbs and adjectives that they co-occur with. For this, you first need to run dependency parsing. You can run the following script, where the format of the `people_terms` file should be the way it is described above. Our paper used Dozat et al. (2017)'s dependency parser. Since many of the other tools in this repo are based on SpaCy, the script we provide here uses SpaCy's dependency parser. 
+One way to understand how people are described is to look at the verbs and adjectives that they co-occur with. For this, you first need to run dependency parsing. You can run the following script, where the format of the `people_terms` file should be the way it is described above. Our paper used Dozat et al. (2017)'s dependency parser. Since many of the other tools in this repo are based on SpaCy and it is time consuming to train a parser from scratch, the script we provide here uses SpaCy's dependency parser. 
 
 ```
 python get_descriptors.py --input_dir data/ner_coref_txts --output_dir results/ --people_terms wordlists/people_terms.csv
