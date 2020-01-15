@@ -72,7 +72,7 @@ TODO: the above script works for unigrams, but not yet for bigrams
 
 TODO: write a note about how this could be used for other types of inputs (e.g. non-people)
 
-## Counting the Mentions of Named People (TODO: @lucy)
+## Counting the Mentions of Named People 
 
 To count the frequency of mentions for named people (e.g. Eleanor Roosevelt), you first need to run Named Entity Recognition (NER). The following script will run NER on your files and it will also combine last names with the most recent full name in the data. It will also output a new dataset in `ner_dir` where named entities have standardized Wikidata names, e.g. Franklin D. Roosevelt -> Franklin Delano Roosevelt. 
 
@@ -88,7 +88,7 @@ If you would also like to obtain demographic information for the named individua
 python get_wikidata_attributes.py --input_dir results/named_people --output_dir results/ 
 ```
 
-The output file will be a `.csv`, where the first colum is the name of the person and the rest of the columns correspond to attributes, including `gender`, `race/ethnicity`, and `occupation`. If the person was not found in the database, or the category was not listed, the value will be empty.
+The output file will be a `.csv`, where the first column is the named entity as found in the text and the rest of the columns correspond to Wikidata attributes, including `gender`, `race/ethnicity`, and `occupation`. If the person was not found in the database, or the category was not listed, the value will be `None`. Note that the same person may show up multiple times if multiple Wikidata names are matched with it. 
 
 # Looking at How People Are Described
 
