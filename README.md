@@ -70,15 +70,17 @@ An output file `people_mentions.csv` will be generated in the output directory. 
 
 TODO: the above script works for unigrams, but not yet for bigrams
 
+TODO: write a note about how this could be used for other types of inputs (e.g. non-people)
+
 ## Counting the Mentions of Named People (TODO: @lucy)
 
-To count the frequency of mentions for named people (e.g. Eleanor Roosevelt), you first need to run Named Entity Recognition (NER). The following script will run NER on your files and it will also combine last names with the most recent full name in the data. It will also output a new dataset in `ner_dir` where named entities have standardized names, e.g. Franklin D. Roosevelt -> Franklin Delano Roosevelt. 
+To count the frequency of mentions for named people (e.g. Eleanor Roosevelt), you first need to run Named Entity Recognition (NER). The following script will run NER on your files and it will also combine last names with the most recent full name in the data. It will also output a new dataset in `ner_dir` where named entities have standardized Wikidata names, e.g. Franklin D. Roosevelt -> Franklin Delano Roosevelt. 
 
 ```
 python count_names.py --input_dir data/coref_resolved_txts --ner_dir data/ner_coref_txts --output_dir results/named_people
 ```
 
-This script will generate separate files for each textbook in the specified output directory, with counts of each named individual.
+This script will generate separate files for each textbook in the specified output directory, with counts of each named individual. It will also generate a file `full2wikiname.json` which saves aliases already queried from Wikidata allows you to rerun the script faster. 
 
 If you would also like to obtain demographic information for the named individuals automatically, you can run the following script. This script builds on Wikidata, which has a lot of missing information (e.g. it usually doesn't specify race for white people), but it has high coverage of gender information, for example. The input should be the output of `count_names.py`. Names will be matched based on Wikidata aliases. 
 
