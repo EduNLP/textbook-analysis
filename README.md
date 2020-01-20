@@ -197,11 +197,11 @@ To induce topics in your data, you first need to run a topic model. Our script r
 The following script runs the topic model:
 
 ```
-python run_lda.py \
---mallet_dir /Users/<YOUR_USERNAME>/mallet-2.0.8/bin/mallet \
---num_topics 300 \
+python get_topics.py \
+--mallet_dir /Users/<YOUR_USERNAME>/mallet-2.0.8/bin \
+--num_topics 100 \
 --input_dir data/coref_resolved_txts \
---output_dir mallet \
+--output_dir topics \
 --stem
 ```
 
@@ -215,9 +215,25 @@ where the arguments are the following:
  
 The script will save the model with the `output_dir/<NUM_TOPICS>` prefix, and it will also create a `output_dir/<NUM_TOPICS>_words.json` file where you can inspect the top words associated with each topic.
 
-## Topic Prominence
+Note that this script runs the topic model on *all books* at once in `input_dir`, so if you want to get separate topic models for each book, then you should only include the relevant books in `input_dir`. If you want to run a topic model on all books, and then separate the topic distributions per book afterwards (this is what we did), you can do that with the script below.
 
-You can also look at their prominence in the following files:.
+## Topic Prominence
+You can obtain topic distributions per book by running the following script. 
+
+```
+python get_topic_prominence.py 
+```
+where the arguments are the following:
+
+* `num_topics`: number of topics
+*
+
+The script will generate a dataframe, with the following columns:
+
+* `book`: title of the book
+* `[1-num_topics]`: a column for each topic, showing the ratio (between 0 and 1) of that topic for that particular book
+
+
 
 ## Diversity of Topics Associated with a Group
 
