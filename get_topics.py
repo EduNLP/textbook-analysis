@@ -28,11 +28,10 @@ args = parser.parse_args()
 
 def generate_cooccurrence_from_int_set(articles, num_topics=100):
     matrix = np.zeros((num_topics, num_topics))
-    for article in articles:
-        ideas = article.ideas
-        for idea in ideas:
-            matrix[idea, idea] += 1
-        for (i, j) in itertools.combinations(ideas, 2):
+    for topics in articles:
+        for topic in topics:
+            matrix[topic, topic] += 1
+        for (i, j) in itertools.combinations(topics, 2):
             matrix[i, j] += 1
             matrix[j, i] += 1
     return matrix
@@ -186,10 +185,10 @@ def load_doc_topics(sentences, doc_topic_file, threshold=0.01):
             topic_line = tfin.readline()
             if not topic_line:
                 break
-            ideas = topic_line.strip().split()[2:]
-            ideas = set([i for (i, v) in enumerate(ideas)
+            topics = topic_line.strip().split()[2:]
+            topics = set([i for (i, v) in enumerate(topics)
                          if float(v) > threshold])
-            articles.append(ideas)
+            articles.append(topics)
     return articles
 
 def load_articles(sentences, topic_dir, threshold):
@@ -208,14 +207,14 @@ def get_count_cooccur(articles, func=generate_cooccurrence_from_int_set):
     return {"count": count, "cooccur": cooccur,
             "articles": len(articles)}
 
-def get_pmi(matrix, idea_count, total,
-            num_ideas=50,
+def get_pmi(matrix, topic_count, total,
+            num_topics=50,
             add_one=1.0):
     result = matrix.copy()
-    for i in range(num_ideas):
-        for j in range(i + 1, num_ideas):
+    for i in range(num_topics):
+        for j in range(i + 1, num_topics):
             score = get_log_pmi(matrix[i, j],
-                                      idea_count[i], idea_count[j], total,
+                                      topic_count[i], topic_count[j], total,
                                       add_one=add_one)
             if np.isnan(score):
                 score = 0
@@ -231,7 +230,7 @@ def get_log_pmi(xy, x, y, total, add_one=1.0):
     return np.log(xy + add_one) + np.log(total + add_one) \
             - np.log(x + add_one) - np.log(y + add_one)
 
-def generate_scatter_dist_plot(articles, num_ideas, output_dir,
+def get_scores(articles, num_topics, output_dir,
                                cooccur_func=None):
     print('Counting co-occurrence...')
     result = get_count_cooccur(articles, func=cooccur_func)
@@ -241,12 +240,9 @@ def generate_scatter_dist_plot(articles, num_ideas, output_dir,
     print('Getting pmi...')
     # pmi is based on overall co-occurrences
     pmi = get_pmi(result["cooccur"], result["count"],
-                  float(result["articles"]), num_ideas=num_ideas)
+                  float(result["articles"]), num_topics=num_topics)
     np.save('%s/pmi.npy' % output_dir, pmi)
     return pmi
-
-def generate_all_outputs(articles, num_ideas, output_dir, cooccur_func):
-    generate_scatter_dist_plot(articles, num_ideas, output_dir, cooccur_func=cooccur_func)
 
 
 def main():
@@ -272,11 +268,11 @@ def main():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-
     print(args.num_topics, "topics")
     num_topics = args.num_topics
     cooccur_func = functools.partial(generate_cooccurrence_from_int_set,
-                                     num_ideas=num_topics)
+                                     num_topics=num_topics)
+
 
     # generate mallet topics
     get_mallet_input_from_words(all_text, output_dir)
@@ -289,20 +285,22 @@ def main():
     os.system("./mallet.sh %s %s %d" % (args.mallet_dir,
                                         output_dir,
                                         num_topics))
+
     # load mallet outputs
     articles, vocab, topic_names = load_articles(all_text, output_dir, threshold=.1)
-    save_idea_names = '%s/idea_names.json' % output_dir
-    with open(save_idea_names, 'w') as f:
+    save_topic_names = '%s/topic_names.json' % output_dir
+    with open(save_topic_names, 'w') as f:
         f.write(json.dumps(topic_names))
 
     print(topic_names)
 
+
     # compute strength between pairs and generate outputs
-    generate_all_outputs(articles, num_topics, output_dir, cooccur_func)
+    get_scores(articles, num_topics, output_dir, cooccur_func=cooccur_func)
 
     print("Separating topics per book...")
 
-    doc_topic_file = '%/doc-topics.gz' % output_dir
+    doc_topic_file = '%s/doc-topics.gz' % output_dir
     doc_topics = open(doc_topic_file).read().splitlines()
     print(len(doc_topics), 'articles total')
     prev = 0
@@ -313,7 +311,7 @@ def main():
         with open(book_output_dir + '/doc-topics.gz', 'w') as outf:
             outf.write('\n'.join(doc_topics[prev:prev + length]))
 
-        generate_all_outputs(articles[prev:prev + length], num_topics, book_output_dir, cooccur_func)
+        get_scores(articles[prev:prev + length], num_topics, book_output_dir, cooccur_func)
         prev += length
 
 

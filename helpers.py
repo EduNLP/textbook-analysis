@@ -72,7 +72,7 @@ def get_book_txts(path, splitlines=False):
         txt = codecs.open(f, 'r', encoding='utf-8').read()
         if splitlines:
             txt = txt.splitlines()
-        title = f.split('/')[-1]
+        title = f.split('/')[-1].split(".")[0]
         books[title] = txt
         print(title)
     return books

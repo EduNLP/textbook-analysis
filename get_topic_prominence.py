@@ -2,37 +2,37 @@
 # -*- coding: utf-8 -*-
 # Author: Dora Demszky (ddemszky@stanford.edu)
 import argparse
-import gensim.corpora as corpora
-from gensim.models.wrappers import LdaMallet
-from gensim.models import CoherenceModel
 from helpers import *
 import pandas as pd
 import json
+import numpy as np
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--model_dir', required=True, help="Directory containing the topic model files.")
-parser.add_argument('--num_topics', default=300, type=int, help="Number of topics to induce.")
+parser.add_argument('--topic_dir', required=True, help="Directory containing the topic model files.")
+parser.add_argument('--textbook_dir', required=True, help="Directory containing the textbook files.")
 
 args = parser.parse_args()
 
-
-
-
 def main():
-    print("Loading book boundaries...")
-    books = json.loads(open(args.model_dir + '/book_start_end.json', 'r').read())
+    topic_names = json.load(open('%s/topic_names.json' % args.topic_dir, 'r'))
+    books = get_book_txts(args.textbook_dir, splitlines=False)
+    dicts = []
 
-    print("Loading model...")
-    model_path = args.model_dir + '/' + str(args.num_topics)
-    model = LdaMallet.load(model_path)
-    id2word = model.id2word
-    word2id = {v: k for k, v in id2word.items()}
-    word_topics = model.word_topics
-
-    print("Getting topics for all books...")
-    all_topics = pd.read_csv(model_path + 'doctopics.txt', sep='\t', header=0, index_col=0,
-                             names=['docno'] + list(range(args.num_topics)))
+    for title, book in books.items():
+        topic_counts = np.load('%s/%s/topic_count.npy' % (args.topic_dir, title))
+        book_total = np.sum(topic_counts)
+        for topic_id, topic_words in topic_names.items():
+            topic_count = topic_counts[int(topic_id)]
+            d = {"book": title,
+                 "topic_id": topic_id,
+                 "topic_words": topic_words,
+                 "raw_count": int(topic_count),
+                 "topic_proportion": topic_count / book_total
+            }
+            dicts.append(d)
+    df = pd.DataFrame(dicts)
+    df.to_csv('%s/topic_prominence.csv' % args.topic_dir, index=False)
 
 
 
