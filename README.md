@@ -201,7 +201,7 @@ python run_lda.py \
 --mallet_dir /Users/<YOUR_USERNAME>/mallet-2.0.8/bin/mallet \
 --num_topics 300 \
 --input_dir data/coref_resolved_txts \
---output_dir topic_model/lda_300
+--output_dir mallet \
 --stem
 ```
 
@@ -213,6 +213,7 @@ where the arguments are the following:
 * `output_dir`: Output directory for the topic model.
 * `stem`: Whether to stem words before running the topic model (in the paper, we do).
  
+The script will save the model with the `output_dir/<NUM_TOPICS>` prefix, and it will also create a `output_dir/<NUM_TOPICS>_words.json` file where you can inspect the top words associated with each topic.
 
 ## Topic Prominence
 
