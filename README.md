@@ -233,8 +233,8 @@ where the arguments are the following:
 
 The script will generate a dataframe, with the following columns:
 
-* `book`: title of the book
-* `topic_id`: Id of the topic, as in `topics/topic_names.json`.
+* `book`: Title of the book.
+* `topic_id`: ID of the topic, as in `topics/topic_names.json`.
 * `topic_words`: Top words associated with the topic, as in `topics/topic_names.json`.
 * `raw_count`: Raw number of sentences where the topic is prominent for the given book.
 * `topic_proportion`: The proportion of sentences where the topic is prominent for the given book.
@@ -242,9 +242,20 @@ The script will generate a dataframe, with the following columns:
 
 ## Diversity of Topics Associated with a Group
 
-To measure the association between groups and particular topics, run:
+To see how similar the topics are that are associated with the same group, we average the PMI of all topics associated with that group. To perform this analysis, run the following script:
 
-> todo: add script, args: topic words file, words indicating groups
+```
+python topic_diversity.py \
+--topic_dir topics \
+--words women,woman \
+```
+
+with the following arguments:
+
+* `topic_dir`: Directory containing the topic files.
+* `words`: Comma-separated list of terms (unigrams or bigrams) that are associated with a particular group.
+
+The script will output a score, which you can compare with the score of other groups. The higher the score, the more similar the topics are which are associated with a group.
 
 
 
