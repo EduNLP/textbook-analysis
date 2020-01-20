@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 BIN_DIR=$1
 DIRECTORY=$2
