@@ -248,12 +248,14 @@ To see how similar the topics are that are associated with the same group, we av
 python topic_diversity.py \
 --topic_dir topics \
 --words women,woman \
+--all_books
 ```
 
 with the following arguments:
 
 * `topic_dir`: Directory containing the topic files.
 * `words`: Comma-separated list of terms (unigrams or bigrams) that are associated with a particular group.
+* `all_books`: Whether to perform the analysis across all books, or only a specific book. If you only want to perform the analysis on a specific book, then you should add the argument `--title <TITLE_OF_BOOK>`.
 
 The script will output a score, which you can compare with the score of other groups. The higher the score, the more similar the topics are which are associated with a group.
 
