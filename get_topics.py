@@ -284,9 +284,9 @@ def main():
     # run mallet to prepare topics inputs
     # users can also generate mallet-style topic inputs inputs
     logging.info("running mallet to get topics")
-    if not os.path.exists(os.path.join(args.mallet_bin_dir, 'mallet')):
-        sys.exit("Error: Unable to find mallet at %s" % args.mallet_bin_dir)
-    os.system("./mallet.sh %s %s %d" % (args.mallet_bin_dir,
+    if not os.path.exists(os.path.join(args.mallet_dir, 'mallet')):
+        sys.exit("Error: Unable to find mallet at %s" % args.mallet_dir)
+    os.system("./mallet.sh %s %s %d" % (args.mallet_dir,
                                         output_dir,
                                         num_topics))
     # load mallet outputs
