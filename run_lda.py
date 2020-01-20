@@ -14,7 +14,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--mallet_dir', required=True, help="Location of MALLET binary file.")
 parser.add_argument('--input_dir', required=True, help="Directory of input text files.")
 parser.add_argument('--output_dir', required=True, help="Directory for the topic model.")
-parser.add_argument('--num_topics', default=300, type=int, help="Number of topics to induce.")
+parser.add_argument('--num_topics', default=100, type=int, help="Number of topics to induce.")
 parser.add_argument('--stem', action='store_true', help="Whether to stem words before running the topic model "
                                                         "(in the paper, we do).")
 
