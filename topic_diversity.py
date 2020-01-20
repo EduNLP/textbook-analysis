@@ -10,8 +10,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--topic_dir', required=True, help="Directory containing the topic model files.")
 parser.add_argument('--words', required=True, help="Comma-separated list of words (unigrams and bigrams)"
                                                    "associated with a particular group.")
-parser.add_argument('--words', required=True, help="Comma-separated list of words (unigrams and bigrams)"
-                                                   "associated with a particular group.")
+parser.add_argument('--title', required=False, help="Title of the book to perform the analysis on.")
+parser.add_argument('--all_books', action='store_true', help="Whether to perform analyses across all books.")
 
 args = parser.parse_args()
 
@@ -37,7 +37,8 @@ def main():
         dir = "%s/%s" % (args.topic_dir, args.title)
     topic_ids = get_topics_for_word(args.words.split(","), topic_names)
     pmi = np.load(dir + '/pmi.npy')
-    print(np.mean([pmi[int(i),int(j)] for j in topic_ids for i in topic_ids if j != i]))
+    val = np.mean([pmi[int(i),int(j)] for j in topic_ids for i in topic_ids if j != i])
+    print("Score for group: %.3f" % val)
 
 
 
