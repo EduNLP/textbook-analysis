@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('--mallet_dir', required=True, help="Location of MALLET binary file.")
 parser.add_argument('--input_dir', required=True, help="Directory of input text files.")
-parser.add_argument('--output_dir', required=True, help="Directory for topic model")
+parser.add_argument('--output_dir', required=True, help="Directory for the topic model.")
 parser.add_argument('--num_topics', default=300, type=int, help="Number of topics to induce.")
 parser.add_argument('--stem', action='store_true', help="Whether to stem words before running the topic model "
                                                         "(in the paper, we do).")
@@ -26,7 +26,7 @@ def get_topics(num, corpus, id2word, output_dir, all_sentences):
     ldamallet = LdaMallet(args.mallet_dir,
                           corpus=corpus,
                           num_topics=num,
-                          prefix=output_dir,
+                          prefix=output_dir + "/" + str(num),
                           workers=4,
                           id2word=id2word,
                           iterations=1000,
@@ -38,9 +38,9 @@ def get_topics(num, corpus, id2word, output_dir, all_sentences):
     coherence_ldamallet = coherence_model_ldamallet.get_coherence()
     print('\nCoherence Score: ', coherence_ldamallet)
     keywords = {i: ", ".join([word for word, prop in ldamallet.show_topic(i)]) for i in range(ldamallet.num_topics)}
-    with open('../logs/mallet/' + str(num) + '_words.json', 'w') as f:
+    with open(output_dir + "/" + str(num) + '_words.json', 'w') as f:
         f.write(json.dumps(keywords))
-    ldamallet.save(output_dir)
+    ldamallet.save(output_dir + "/" + str(num))
     #ldamallet.show_topics(num_topics=num, formatted=True)
     return coherence_ldamallet
 
@@ -66,14 +66,14 @@ def main():
     start_end_dict = {}
     for tup in start_end:
         start_end_dict[tup[0]] = (tup[1], tup[2])
-    with open('logs/mallet/book_start_end.json', 'w') as f:
+    with open(args.output_dir + '/book_start_end.json', 'w') as f:
         f.write(json.dumps(start_end_dict))
 
     print("%d sentences total" % len(all_sentences))
 
     print("Creating dictionary...")
     id2word = corpora.Dictionary(all_sentences)
-    id2word.save('logs/mallet/dictionary.dict')
+    id2word.save(args.output_dir + '/dictionary.dict')
 
     print("Getting term-document frequencies...")
     corpus = [id2word.doc2bow(t) for t in all_sentences]
