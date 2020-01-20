@@ -213,7 +213,7 @@ where the arguments are the following:
 * `output_dir`: Output directory for the topic model.
 * `stem`: Whether to stem words before running the topic model (in the paper, we do).
  
-The script will save the model with the `output_dir/<NUM_TOPICS>` prefix, and it will also create a `output_dir/<NUM_TOPICS>_words.json` file where you can inspect the top words associated with each topic.
+The script will save the model and all associated files (e.g. vocabulary) in `output_dir`, and it will also create separate files for each book. You can inspect the topics in `output_dir/topic_names.json`.
 
 Note that this script runs the topic model on *all books* at once in `input_dir`, so if you want to get separate topic models for each book, then you should only include the relevant books in `input_dir`. If you want to run a topic model on all books, and then separate the topic distributions per book afterwards (this is what we did), you can do that with the script below.
 
