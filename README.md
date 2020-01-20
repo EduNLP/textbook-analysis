@@ -1,6 +1,6 @@
 # Textbook Analysis via Natural Language Processing
 Code for the paper "Content Analysis of Textbooks via Natural Language Processing".
-> Lucy*, L., Demszky*, D., Bromley, P. & Jurafsky, D. (2019). Content Analysis of Textbooks via Natural Language Processing: Novel Findings on Gender, Race, and Ethnicity in Texas US HistoryTextbooks. _In Preparation_.  *indicates equal contribution
+> Lucy*, L., Demszky*, D., Bromley, P. & Jurafsky, D. (2019). Content Analysis of Textbooks via Natural Language Processing: Novel Findings on Gender, Race, and Ethnicity in Texas US HistoryTextbooks. _Under Review_.  *indicates equal contribution
 
 This script is for those who would like to perform analyses on their own textbook data (or any other data), to better understand the representation of minorities and women in text. These scripts should be very easy to use, so you **do not need any technical background** to run these analyses. See our paper for a more detailed description of each method.
 
@@ -190,17 +190,29 @@ The script will save a dataframe in the file specified by `--output_file`, with 
 * `p value`: *p* value for cosine similarity, calculated using two-tailed t test.
 
 
-# Analyzing Topics (TODO: @dora)
+# Analyzing Topics
 
-To induce topics in your data, you first need to run a topic model. Our script runs LDA, using the very efficient MALLET package. In order to run this, you first need to download MALLET, by running the following command:
-
-> todo: add mallett download script
+To induce topics in your data, you first need to run a topic model. Our script runs LDA, using the very efficient MALLET package. In order to run this, you first need to download MALLET. Download and unzip the most recent MALLET package [HERE](http://mallet.cs.umass.edu/download.php).
 
 The following script runs the topic model:
 
-> todo: add topic modeling script, that also calculates the prominence of each topic
+```
+python run_lda.py \
+--mallet_dir /Users/<YOUR_USERNAME>/mallet-2.0.8/bin/mallet \
+--num_topics 300 \
+--input_dir data/coref_resolved_txts \
+--output_dir topic_model/lda_300
+--stem
+```
 
-You can inspect the resulting topics by looking at the following files: . 
+where the arguments are the following:
+
+* `mallet_dir`: Directory of the MALLET binary file.
+* `num_topics`: Number of topics to induce.
+* `input_dir`: Directory of textbook files.
+* `output_dir`: Output directory for the topic model.
+* `stem`: Whether to stem words before running the topic model (in the paper, we do).
+ 
 
 ## Topic Prominence
 
