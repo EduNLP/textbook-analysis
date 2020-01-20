@@ -218,21 +218,26 @@ The script will save the model with the `output_dir/<NUM_TOPICS>` prefix, and it
 Note that this script runs the topic model on *all books* at once in `input_dir`, so if you want to get separate topic models for each book, then you should only include the relevant books in `input_dir`. If you want to run a topic model on all books, and then separate the topic distributions per book afterwards (this is what we did), you can do that with the script below.
 
 ## Topic Prominence
-You can obtain topic distributions per book by running the following script. 
+
+You can obtain the number of sentences where each topic is prominent (above a ratio of .1, as determined by the topic model) using the following script. 
 
 ```
-python get_topic_prominence.py 
+python get_topic_prominence.py \
+--topic_dir topics \
+--textbook_dir data/coref_resolved_txts
 ```
 where the arguments are the following:
 
-* `num_topics`: number of topics
-*
+* `topic_dir`: Directory containing the topic files.
+* `textbook_dir`: Directory containing the textbook files (for the purposes of obtaining titles).
 
 The script will generate a dataframe, with the following columns:
 
 * `book`: title of the book
-* `[1-num_topics]`: a column for each topic, showing the ratio (between 0 and 1) of that topic for that particular book
-
+* `topic_id`: Id of the topic, as in `topics/topic_names.json`.
+* `topic_words`: Top words associated with the topic, as in `topics/topic_names.json`.
+* `raw_count`: Raw number of sentences where the topic is prominent for the given book.
+* `topic_proportion`: The proportion of sentences where the topic is prominent for the given book.
 
 
 ## Diversity of Topics Associated with a Group
