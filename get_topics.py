@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 parser = argparse.ArgumentParser()
 parser.add_argument('--input_dir', required=True, help="Directory of input text files.")
 parser.add_argument("--output_dir",
-                    help=("output directory for intermedia data"),
+                    help=("output directory for intermediate data"),
                     type=str)
 parser.add_argument('--mallet_dir', required=True, help="Location of MALLET binary file.")
 parser.add_argument('--num_topics', default=100, type=int, help="Number of topics to induce.")
