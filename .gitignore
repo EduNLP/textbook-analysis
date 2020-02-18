@@ -1,10 +1,6 @@
 # Ignore data folder
 data/
 
-# Ignore mallet input file
-*.input
-*.mallet
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
