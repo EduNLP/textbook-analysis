@@ -199,9 +199,9 @@ The following script runs the topic model:
 ```
 python get_topics.py \
 --mallet_dir /Users/<YOUR_USERNAME>/mallet-2.0.8/bin \
---num_topics 100 \
+--num_topics 70 \
 --input_dir data/coref_resolved_txts \
---output_dir topics \
+--output_dir topics/topics_70 \
 --stem
 ```
 
