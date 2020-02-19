@@ -41,7 +41,11 @@ def get_word_to_category(people_terms_path):
             word2dem[contents[0]] = contents[1]
     return word2dem
 
-def clean_text(text, remove_stopwords=True, remove_numeric=True, stem=False, remove_short=True):
+def clean_text(text,
+               remove_stopwords=True,
+               remove_numeric=True,
+               stem=False,
+               remove_short=True):
     # lower case
     text = text.lower()
     # eliminate urls
