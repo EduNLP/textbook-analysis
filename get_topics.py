@@ -177,7 +177,7 @@ def load_topic_words(vocab, input_file, top=10):
     return topic_map
 
 
-def load_doc_topics(sentences, doc_topic_file, threshold=0.01):
+def load_doc_topics(sentences, doc_topic_file, threshold):
     """Load topics in each document"""
     articles = []
     with open(doc_topic_file) as tfin:
@@ -252,13 +252,18 @@ def main():
     print('Combining data and cleaning data...')
     book_texts = {}
     for k, v in books.items():
-        book_texts[k] = [' '.join(clean_text(sent, stem=args.stem, remove_short=True)) for l in v for sent in
+        book_texts[k] = [' '.join(clean_text(sent,
+                                             stem=args.stem,
+                                             remove_short=True,
+                                             remove_stopwords=True)) for l in v for sent in
                          nltk.sent_tokenize(l)]
 
 
+    titles = sorted(books.keys())
     all_text = []
     book2length = []
-    for title, texts in book_texts.items():
+    for title in titles:
+        texts = book_texts[title]
         book2length.append((title, len(texts)))
         for t in texts:
             all_text.append(t)
@@ -285,6 +290,7 @@ def main():
     os.system("./mallet.sh %s %s %d" % (args.mallet_dir,
                                         output_dir,
                                         num_topics))
+
 
     # load mallet outputs
     articles, vocab, topic_names = load_articles(all_text, output_dir, threshold=.1)
@@ -313,8 +319,6 @@ def main():
 
         get_scores(articles[prev:prev + length], num_topics, book_output_dir, cooccur_func)
         prev += length
-
-
 
 
 if __name__ == "__main__":
