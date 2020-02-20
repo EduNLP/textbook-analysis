@@ -4,13 +4,12 @@
 import codecs
 import glob
 import string
-from nltk.corpus import stopwords
 import nltk
 import re
 from gensim.models import KeyedVectors
 import seaborn as sns
 
-stopwords = set(stopwords.words('english')) | {'could', 'should', 'would', 'shall', 'must', 'may', 'many', 'most'}
+stopwords = open("wordlists/stopwords/en/mallet.txt", "r").read().splitlines()
 punct_chars = list((set(string.punctuation) | {'»', '–', '—', '-',"­", '\xad', '-', '◾', '®', '©','✓','▲', '◄','▼','►', '~', '|', '“', '”', '…', "'", "`", '_', '•', '*', '■'} - {"'"}))
 punct_chars.sort()
 punctuation = ''.join(punct_chars)
