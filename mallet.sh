@@ -13,4 +13,4 @@ $BIN_DIR/mallet train-topics --input $DIRECTORY/data.mallet \
       --num-topics $TOPICS --output-state $DIRECTORY/topic-state.gz \
       --output-doc-topics $DIRECTORY/doc-topics.gz \
       --output-topic-keys $DIRECTORY/topic-words.gz --num-top-words 500 \
-      --optimize-interval 50 --num-iterations 1000
+      --num-iterations 1000

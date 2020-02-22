@@ -252,12 +252,15 @@ def main():
     print('Combining data and cleaning data...')
     book_texts = {}
     for k, v in books.items():
-        book_texts[k] = [' '.join(clean_text(sent,
+        book_texts[k] = []
+        for line in v:
+            for sent in nltk.sent_tokenize(line):
+                if len(sent) < 15:
+                    continue
+                book_texts[k].append(' '.join(clean_text(sent,
                                              stem=args.stem,
                                              remove_short=True,
-                                             remove_stopwords=True)) for l in v for sent in
-                         nltk.sent_tokenize(l)]
-
+                                             remove_stopwords=True)))
 
     titles = sorted(books.keys())
     all_text = []
