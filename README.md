@@ -1,6 +1,6 @@
 # Textbook Analysis via Natural Language Processing
 Code for the paper "Content Analysis of Textbooks via Natural Language Processing".
-> Lucy*, L., Demszky*, D., Bromley, P. & Jurafsky, D. (2019). Content Analysis of Textbooks via Natural Language Processing: Novel Findings on Gender, Race, and Ethnicity in Texas US HistoryTextbooks. _In Preparation_.  *indicates equal contribution
+> Lucy*, L., Demszky*, D., Bromley, P. & Jurafsky, D. (2019). Content Analysis of Textbooks via Natural Language Processing: Novel Findings on Gender, Race, and Ethnicity in Texas US HistoryTextbooks. _Under Review_.  *indicates equal contribution
 
 This script is for those who would like to perform analyses on their own textbook data (or any other data), to better understand the representation of minorities and women in text. These scripts should be very easy to use, so you **do not need any technical background** to run these analyses. See our paper for a more detailed description of each method.
 
@@ -190,27 +190,74 @@ The script will save a dataframe in the file specified by `--output_file`, with 
 * `p value`: *p* value for cosine similarity, calculated using two-tailed t test.
 
 
-# Analyzing Topics (TODO: @dora)
+# Analyzing Topics
 
-To induce topics in your data, you first need to run a topic model. Our script runs LDA, using the very efficient MALLET package. In order to run this, you first need to download MALLET, by running the following command:
-
-> todo: add mallett download script
+To induce topics in your data, you first need to run a topic model. Our script runs LDA, using the very efficient MALLET package. In order to run this, you first need to download MALLET. Download and unzip the most recent MALLET package [HERE](http://mallet.cs.umass.edu/download.php).
 
 The following script runs the topic model:
 
-> todo: add topic modeling script, that also calculates the prominence of each topic
+```
+python get_topics.py \
+--mallet_dir /Users/<YOUR_USERNAME>/mallet-2.0.8/bin \
+--num_topics 70 \
+--input_dir data/coref_resolved_txts \
+--output_dir topics/topics_70 \
+--stem
+```
 
-You can inspect the resulting topics by looking at the following files: . 
+where the arguments are the following:
+
+* `mallet_dir`: Directory of the MALLET binary file.
+* `num_topics`: Number of topics to induce.
+* `input_dir`: Directory of textbook files.
+* `output_dir`: Output directory for the topic model.
+* `stem`: Whether to stem words before running the topic model (in the paper, we do).
+ 
+The script will save the model and all associated files (e.g. vocabulary) in `output_dir`, and it will also create separate files for each book. You can inspect the topics in `output_dir/topic_names.json`.
+
+Note that this script runs the topic model on *all books* at once in `input_dir`, so if you want to get separate topic models for each book, then you should only include the relevant books in `input_dir`. If you want to run a topic model on all books, and then separate the topic distributions per book afterwards (this is what we did), you can do that with the script below.
 
 ## Topic Prominence
 
-You can also look at their prominence in the following files:.
+You can obtain the number of sentences where each topic is prominent (above a ratio of .1, as determined by the topic model) using the following script. 
+
+```
+python get_topic_prominence.py \
+--topic_dir topics \
+--textbook_dir data/coref_resolved_txts
+```
+where the arguments are the following:
+
+* `topic_dir`: Directory containing the topic files.
+* `textbook_dir`: Directory containing the textbook files (for the purposes of obtaining titles).
+
+The script will generate a dataframe, with the following columns:
+
+* `book`: Title of the book.
+* `topic_id`: ID of the topic, as in `topics/topic_names.json`.
+* `topic_words`: Top words associated with the topic, as in `topics/topic_names.json`.
+* `raw_count`: Raw number of sentences where the topic is prominent for the given book.
+* `topic_proportion`: The proportion of sentences where the topic is prominent for the given book.
+
 
 ## Diversity of Topics Associated with a Group
 
-To measure the association between groups and particular topics, run:
+To see how similar the topics are that are associated with the same group, we average the PMI of all topics associated with that group. To perform this analysis, run the following script:
 
-> todo: add script, args: topic words file, words indicating groups
+```
+python topic_diversity.py \
+--topic_dir topics \
+--words women,woman \
+--all_books
+```
+
+with the following arguments:
+
+* `topic_dir`: Directory containing the topic files.
+* `words`: Comma-separated list of terms (unigrams or bigrams) that are associated with a particular group.
+* `all_books`: Whether to perform the analysis across all books, or only a specific book. If you only want to perform the analysis on a specific book, then you should add the argument `--title <TITLE_OF_BOOK>`.
+
+The script will output a score, which you can compare with the score of other groups. The higher the score, the more similar the topics are which are associated with a group.
 
 
 
