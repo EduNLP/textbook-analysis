@@ -31,10 +31,9 @@ def main():
             dem_dict = Counter() # demographic : count
             for line in textbook_lines:
                 doc = nlp(line)
-                prev_token = None
+                prev_word = None
                 for token in doc: 
                     word = token.text.lower()
-                    prev_word = word
                     # only look at nouns
                     if token.pos_ != 'PROPN' and \
                         token.pos_ != 'NOUN' and token.pos_ != 'PRON': continue
@@ -50,6 +49,7 @@ def main():
                         else: 
                             # count previous word but not unmarked word
                             dem_dict[word2dem[prev_word]] += 1
+                    prev_word = word
             for demographic in dem_dict: 
                 f.write(title + ',' + demographic + ',' + str(dem_dict[demographic]) + '\n')
 
