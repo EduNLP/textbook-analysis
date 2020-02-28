@@ -213,7 +213,7 @@ where the arguments are the following:
 * `output_dir`: Output directory for the topic model.
 * `stem`: Whether to stem words before running the topic model (in the paper, we do).
  
-The script will save the model and all associated files (e.g. vocabulary) in `output_dir`, and it will also create separate files for each book. You can inspect the topics in `output_dir/topic_names.json`.
+The script will save the model and all associated files (e.g. vocabulary) in `output_dir`, and it will also create separate files for each book. You can inspect the topics in `output_dir/topic_names.json`, which contains the top 10 highest probability terms for each topic.
 
 Note that this script runs the topic model on *all books* at once in `input_dir`, so if you want to get separate topic models for each book, then you should only include the relevant books in `input_dir`. If you want to run a topic model on all books, and then separate the topic distributions per book afterwards (this is what we did), you can do that with the script below.
 
@@ -238,27 +238,6 @@ The script will generate a dataframe, with the following columns:
 * `topic_words`: Top words associated with the topic, as in `topics/topic_names.json`.
 * `raw_count`: Raw number of sentences where the topic is prominent for the given book.
 * `topic_proportion`: The proportion of sentences where the topic is prominent for the given book.
-
-
-## Diversity of Topics Associated with a Group
-
-To see how similar the topics are that are associated with the same group, we average the PMI of all topics associated with that group. To perform this analysis, run the following script:
-
-```
-python topic_diversity.py \
---topic_dir topics \
---words women,woman \
---all_books
-```
-
-with the following arguments:
-
-* `topic_dir`: Directory containing the topic files.
-* `words`: Comma-separated list of terms (unigrams or bigrams) that are associated with a particular group.
-* `all_books`: Whether to perform the analysis across all books, or only a specific book. If you only want to perform the analysis on a specific book, then you should add the argument `--title <TITLE_OF_BOOK>`.
-
-The script will output a score, which you can compare with the score of other groups. The higher the score, the more similar the topics are which are associated with a group.
-
 
 
 
