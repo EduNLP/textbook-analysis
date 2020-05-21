@@ -105,9 +105,8 @@ This script will output `people_descriptors.csv` in the output directory, with t
 * `people_term`: The specific people term.
 * `demographic`: The demographic category. 
 * `word`: The verb / adjective.
-* `count`: The frequency of the particular word occurring with the particular people term (if a verb, this is counted separately for SUBJ and OBJ).
 * `POS`: The part of speech tag for the word (ADJ or VERB).
-* `relation`: If the word is a verb, indicate whether the people term is the subject of the verb (SUBJ) or the object of the verb (OBJ).
+* `relation`: The dependency parsing relation
 
 Note that terms associated with multiple demographic categories would be listed multiple times. For example, "black woman" would be listed under both "black" and "women". 
 

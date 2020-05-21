@@ -79,6 +79,7 @@ def get_book_txts(path, splitlines=False):
         title = f.split('/')[-1].split(".")[0]
         books[title] = txt
         print(title)
+    print("Finished getting books.")
     return books
 
 def get_models(filelist):
