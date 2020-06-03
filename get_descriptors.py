@@ -3,6 +3,7 @@ from helpers import *
 import spacy
 import os
 import math
+from spacy.pipeline import merge_entities
 
 parser = argparse.ArgumentParser()
 
@@ -12,7 +13,20 @@ parser.add_argument('--people_terms', required=True)
 
 args = parser.parse_args()
 
-def run_depparse(possible_marks, not_marks, word2dem, textbook_lines, title, outfile, nlp): 
+def run_depparse(possible_marks, word2dem, famous_people, 
+    textbook_lines, title, outfile, nlp): 
+    '''
+    Get adjectives and verbs associated with frequent named entities
+    and common nouns referring to people.
+    Inputs: 
+    - possible_marks: words that may mark common nouns with a social group, e.g. "black"
+    - word2dem: word to demographic category
+    - famous_people: a set of popular named entities
+    - textbook_lines: strings of textbook content in a list
+    - title: title of book
+    - outfile: opened file
+    - nlp: spacy pipeline
+    '''
     print("Running dependency parsing for", title)
     # Break up every textbook into 5k line chunks to avoid spaCy's text length limit 
     j = 0
@@ -23,10 +37,10 @@ def run_depparse(possible_marks, not_marks, word2dem, textbook_lines, title, out
         doc = nlp(chunk)
         print("Finished part", j, "of", math.ceil(num_lines/5000))
         prev_word = None
-        # get common noun descriptors
         for token in doc:
             word = token.text.lower()
             target_term = token.head.text.lower()
+            # non-named people
             if word in word2dem: 
                 if token.pos_ != 'PROPN' and \
                     token.pos_ != 'NOUN' and token.pos_ != 'PRON': continue
@@ -35,40 +49,45 @@ def run_depparse(possible_marks, not_marks, word2dem, textbook_lines, title, out
                     # word is marked, so add word to marked category
                     dem = word2dem[prev_word]
 
-                if token.dep_ == 'nsubj': 
-                    if token.head.pos_ == 'VERB': 
-                        outfile.write(title + ',' + word + ',' + dem + ',' + \
+                if token.dep_ == 'nsubj' and (token.head.pos_ == 'VERB' or token.head.pos_ == 'ADJ'): 
+                    outfile.write(title + ',' + word + ',' + dem + ',' + \
+                        target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
+                    if prev_word in possible_marks and word in possible_marks:
+                        # handle intersectionality if necessary
+                        if dem != word2dem[prev_word]: 
+                            outfile.write(title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
+                                target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
+                if token.dep_ == 'nsubjpass' and token.head.pos_ == 'VERB': 
+                    outfile.write(title + ',' + word + ',' + dem + ',' + \
+                        target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
+                    if prev_word in possible_marks and word in possible_marks:
+                        if dem != word2dem[prev_word]: 
+                            outfile.write(title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
+                                target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
+                if (token.dep_ == 'obj' or token.dep_ == 'dobj') and token.head.pos_ == 'VERB': 
+                    outfile.write(title + ',' + word + ',' + dem + ',' + \
+                        target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
+                    if prev_word in possible_marks and word in possible_marks:
+                        if dem != word2dem[prev_word]: 
+                            outfile.write(title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
+                                target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
+            # named people
+            if token.ent_type_ == 'PERSON':
+                if word in famous_people: 
+                    if token.dep_ == 'nsubj' and (token.head.pos_ == 'VERB' or token.head.pos_ == 'ADJ'): 
+                        outfile.write(title + ',' + word + ',named,' + \
                             target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
-                        if prev_word in possible_marks and word in possible_marks:
-                            # handle intersectionality if necessary
-                            if dem != word2dem[prev_word]: 
-                                outfile.write(title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
-                                    target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
-                    elif token.head.pos_ == 'ADJ': 
-                        outfile.write(title + ',' + word + ',' + dem + ',' + \
+                    if token.dep_ == 'nsubjpass' and token.head.pos_ == 'VERB': 
+                        outfile.write(title + ',' + word + ',named,' + \
                             target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
-                        if prev_word in possible_marks and word in possible_marks:
-                            if dem != word2dem[prev_word]: 
-                                outfile.write(title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
-                                    target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
-                if token.dep_ == 'nsubjpass': 
-                    if token.head.pos_ == 'VERB': 
-                        outfile.write(title + ',' + word + ',' + dem + ',' + \
+                    if (token.dep_ == 'obj' or token.dep_ == 'dobj') and token.head.pos_ == 'VERB': 
+                        outfile.write(title + ',' + word + ',named,' + \
                             target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
-                        if prev_word in possible_marks and word in possible_marks:
-                            if dem != word2dem[prev_word]: 
-                                outfile.write(title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
-                                    target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
-                if token.dep_ == 'obj' or token.dep_ == 'dobj': 
-                    if token.head.pos_ == 'VERB': 
-                        outfile.write(title + ',' + word + ',' + dem + ',' + \
-                            target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
-                        if prev_word in possible_marks and word in possible_marks:
-                            if dem != word2dem[prev_word]: 
-                                outfile.write(title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
-                                    target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
+
+            # adjectival modifier 
             if token.dep_ == 'amod':
-                if target_term in word2dem: 
+                # non-named people
+                if target_term in word2dem:
                     if token.head.pos_ != 'PROPN' and \
                     token.head.pos_ != 'NOUN' and token.head.pos_ != 'PRON': continue
                     dem = word2dem[target_term]
@@ -85,50 +104,28 @@ def run_depparse(possible_marks, not_marks, word2dem, textbook_lines, title, out
                         if dem != word2dem[prev_target_term]:
                             outfile.write(title + ',' + prev_target_term + ',' + word2dem[prev_target_term] + ',' + \
                                     word + ',' + token.pos_ + ',' + token.dep_ + '\n')
+                # named people
+                if token.head.ent_type_ == 'PERSON' and target_term in famous_people:
+                    outfile.write(title + ',' + target_term + ',named,' + \
+                                word + ',' + token.pos_ + ',' + token.dep_ + '\n')
             prev_word = word
-        # TODO: get famous people descriptors
-        '''
-        for ent in doc.ents: 
-            for ent in doc.ents: 
-                if (ent.label_ == 'PERSON' and not ent.text[0].isdigit()): 
-                    curr_entity = ent.text
-
-            w = dic["form"].lower()
-            rel = dic["deprel"]
-            target = dic["head"]
-            target_term = d[str(i)][target - 1]["form"].lower()
-            target_tag = d[str(i)][target - 1]["upostag"]
-            if dic['entity_type'] == 'PERSON': 
-                if dic['full_entity'] not in famous_people: continue
-                if rel == 'nsubj':
-                    if target_tag == 'VERB':
-                        subj_v[dic['full_entity']].append((target_term, (i, idx)))
-                    elif target_tag == 'ADJ':
-                        adjs[dic['full_entity']].append((target_term, (i, idx)))
-                if rel == 'nsubj:pass':
-                    if target_tag == 'VERB':
-                        pass_v[dic['full_entity']].append((target_term, (i, idx)))
-                if rel == 'obj':
-                    if target_tag == 'VERB':
-                        obj_v[dic['full_entity']].append((target_term, (i, idx)))
-            if rel == 'amod':
-                target_entity = d[str(i)][target - 1]["entity_type"]
-                if target_entity == 'PERSON':
-                    if d[str(i)][target - 1]['full_entity'] not in famous_people: continue
-                    adjs[d[str(i)][target - 1]['full_entity']].append((w, (i, target-1)))
-    '''
 
 def main(): 
     possible_marks, not_marks = split_terms_into_sets(args.people_terms)
     word2dem = get_word_to_category(args.people_terms)
+    famous_people = set()
+    with open('./wordlists/famous_people', 'r') as infile: 
+        for line in infile: 
+            famous_people.add(line.strip().lower())
     # load spacy
     nlp = spacy.load("en_core_web_sm")
-
+    nlp.add_pipe(merge_entities)
     # load books
     books = get_book_txts(args.input_dir, splitlines=True)
     outfile = codecs.open(os.path.join(args.output_dir, 'people_descriptors.csv'), 'w', encoding='utf-8')
     for title, textbook_lines in books.items():
-        run_depparse(possible_marks, not_marks, word2dem, textbook_lines, title, outfile, nlp)
+        run_depparse(possible_marks, word2dem, famous_people, 
+            textbook_lines, title, outfile, nlp)
     outfile.close()
 
 if __name__ == '__main__':

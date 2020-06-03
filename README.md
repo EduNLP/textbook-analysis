@@ -1,6 +1,6 @@
 # Textbook Analysis via Natural Language Processing
 Code for the paper "Content Analysis of Textbooks via Natural Language Processing".
-> Lucy*, L., Demszky*, D., Bromley, P. & Jurafsky, D. (2019). Content Analysis of Textbooks via Natural Language Processing: Novel Findings on Gender, Race, and Ethnicity in Texas US HistoryTextbooks. _Under Review_.  *indicates equal contribution
+> Lucy*, L., Demszky*, D., Bromley, P. & Jurafsky, D. (2019). Content Analysis of Textbooks via Natural Language Processing: Findings on Gender, Race, and Ethnicity in Texas US HistoryTextbooks. _Under Review_.  *indicates equal contribution
 
 This script is for those who would like to perform analyses on their own textbook data (or any other data), to better understand the representation of minorities and women in text. These scripts should be very easy to use, so you **do not need any technical background** to run these analyses. See our paper for a more detailed description of each method.
 
@@ -92,7 +92,7 @@ The output file will be a `.csv`, where the first column is the named entity as 
 
 # Looking at How People Are Described
 
-## Verbs and Adjectives (TODO: @lucy)
+## Verbs and Adjectives
 One way to understand how people are described is to look at the verbs and adjectives that they co-occur with. For this, you first need to run dependency parsing. You can run the following script, where the format of the `people_terms` file should be the way it is described above. Our paper used Dozat et al. (2017)'s dependency parser. Since many of the other tools in this repo are based on SpaCy and it is time consuming to train a parser from scratch, the script we provide here uses SpaCy's dependency parser. 
 
 ```
@@ -103,12 +103,14 @@ This script will output `people_descriptors.csv` in the output directory, with t
 
 * `source_text`: The name of the text file (corresponding to a textbook, for example). 
 * `people_term`: The specific people term.
-* `demographic`: The demographic category. 
+* `category`: The demographic category, or 'named' for named people. 
 * `word`: The verb / adjective.
 * `POS`: The part of speech tag for the word (ADJ or VERB).
 * `relation`: The dependency parsing relation
 
 Note that terms associated with multiple demographic categories would be listed multiple times. For example, "black woman" would be listed under both "black" and "women". 
+
+The current implementation also obtains verbs and adjectives for named individuals, based on the output of the most popular named people of `count_names.py`. 
 
 ## Log odds ratio (TODO: @lucy)
 
@@ -124,7 +126,7 @@ To estimate the association between groups and (todo: add more text).
 
 > todo: explain how to download NRC and add single line script that processes it
 
-> todo:  explain how to download Connotation Frames and add single line script that processes it
+> todo: explain how to download Connotation Frames and add single line script that processes it
 
 > todo: single line script, args: people_descriptors file (generated above), connotation frames dict, nrc dict (it can be just one, too), output file
 
