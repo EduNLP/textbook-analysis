@@ -122,11 +122,13 @@ python run_log_odds.py --input_file results/people_descriptors.csv --output_dir 
 
 ## Power, Agency and Sentiment (TODO: @lucy)
 
-To estimate the association between groups and (todo: add more text). 
+Using external lexicons to quantify the affective connotations of words associated with people. 
 
-> todo: explain how to download NRC and add single line script that processes it
+We use two lexicons in our paper.
 
-> todo: explain how to download Connotation Frames and add single line script that processes it
+The first, the [NRC valence, arousal and dominance (VAD) lexicon](https://saifmohammad.com/WebPages/nrc-vad.html) contains a more than 20,000 English words. Download the zip file on their website and unzip it. Scores for words can be found in `NRC-VAD-Lexicon.txt` in the unzipped folder. 
+
+The second, the [Connotation Frames dataset](https://homes.cs.washington.edu/~hrashkin/connframe.html) and [Power and Agency](https://homes.cs.washington.edu/~msap/movie-bias/) frames. Click on the `Full Labelled English Connotation Frame Data Set` link in the first link and the `download the verbs` link in the second. Once these downloads are unzipped, sentiment frames can be found in the file labeled `full_frame_info.txt` and agency and power frames are in the file `agency_power.csv`. 
 
 > todo: single line script, args: people_descriptors file (generated above), connotation frames dict, nrc dict (it can be just one, too), output file
 
@@ -137,7 +139,6 @@ The script outputs a csv file in the output directory, called `power_agency_sent
 * `dimension`: Name of the dimension.
 * `score`: Score for the particular dimension.
 * `confidence_interval`: 95% confidence interval for the score.
-
 
 ## Measure Association Between Words via Word Embeddings
 Another way to measure association between words is to represent words as **vectors** and look at their distance in the vector space. For this, you first need to create vectors for the words in your text. You can do so by running the following script. Note that this will take a while, depending on your data size and number of runs you want to do.
