@@ -18,7 +18,7 @@ def run_depparse(possible_marks, word2dem, famous_people,
     '''
     Get adjectives and verbs associated with frequent named entities
     and common nouns referring to people.
-    Inputs: 
+    @inputs: 
     - possible_marks: words that may mark common nouns with a social group, e.g. "black"
     - word2dem: word to demographic category
     - famous_people: a set of popular named entities
@@ -30,14 +30,16 @@ def run_depparse(possible_marks, word2dem, famous_people,
     print("Running dependency parsing for", title)
     # Break up every textbook into 5k line chunks to avoid spaCy's text length limit 
     j = 0
+    k = 0
     num_lines = len(textbook_lines)
     for i in range(0, num_lines, 5000):
-        j += 1
         chunk = '\n'.join(textbook_lines[i:i+5000])
         doc = nlp(chunk)
-        print("Finished part", j, "of", math.ceil(num_lines/5000))
+        k += 1
+        print("Finished part", k, "of", math.ceil(num_lines/5000))
         prev_word = None
         for token in doc:
+            j += 1
             word = token.text.lower()
             target_term = token.head.text.lower()
             # non-named people
@@ -50,38 +52,38 @@ def run_depparse(possible_marks, word2dem, famous_people,
                     dem = word2dem[prev_word]
 
                 if token.dep_ == 'nsubj' and (token.head.pos_ == 'VERB' or token.head.pos_ == 'ADJ'): 
-                    outfile.write(title + ',' + word + ',' + dem + ',' + \
+                    outfile.write(str(j) + ',' + title + ',' + word + ',' + dem + ',' + \
                         target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
                     if prev_word in possible_marks and word in possible_marks:
                         # handle intersectionality if necessary
                         if dem != word2dem[prev_word]: 
-                            outfile.write(title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
+                            outfile.write(str(j) + ',' + title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
                                 target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
                 if token.dep_ == 'nsubjpass' and token.head.pos_ == 'VERB': 
-                    outfile.write(title + ',' + word + ',' + dem + ',' + \
+                    outfile.write(str(j) + ',' + title + ',' + word + ',' + dem + ',' + \
                         target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
                     if prev_word in possible_marks and word in possible_marks:
                         if dem != word2dem[prev_word]: 
-                            outfile.write(title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
+                            outfile.write(str(j) + ',' + title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
                                 target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
                 if (token.dep_ == 'obj' or token.dep_ == 'dobj') and token.head.pos_ == 'VERB': 
-                    outfile.write(title + ',' + word + ',' + dem + ',' + \
+                    outfile.write(str(j) + ',' + title + ',' + word + ',' + dem + ',' + \
                         target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
                     if prev_word in possible_marks and word in possible_marks:
                         if dem != word2dem[prev_word]: 
-                            outfile.write(title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
+                            outfile.write(str(j) + ',' + title + ',' + prev_word + ',' + word2dem[prev_word] + ',' + \
                                 target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
             # named people
             if token.ent_type_ == 'PERSON':
                 if word in famous_people: 
                     if token.dep_ == 'nsubj' and (token.head.pos_ == 'VERB' or token.head.pos_ == 'ADJ'): 
-                        outfile.write(title + ',' + word + ',named,' + \
+                        outfile.write(str(j) + ',' + title + ',' + word + ',named,' + \
                             target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
                     if token.dep_ == 'nsubjpass' and token.head.pos_ == 'VERB': 
-                        outfile.write(title + ',' + word + ',named,' + \
+                        outfile.write(str(j) + ',' + title + ',' + word + ',named,' + \
                             target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
                     if (token.dep_ == 'obj' or token.dep_ == 'dobj') and token.head.pos_ == 'VERB': 
-                        outfile.write(title + ',' + word + ',named,' + \
+                        outfile.write(str(j) + ',' + title + ',' + word + ',named,' + \
                             target_term + ',' + token.head.pos_ + ',' + token.dep_ + '\n')
 
             # adjectival modifier 
@@ -98,15 +100,15 @@ def run_depparse(possible_marks, word2dem, famous_people,
                     if prev_target_term in possible_marks and target_term not in possible_marks:
                         # term is marked, assign to marker's category
                         dem = word2dem[prev_target_term]
-                    outfile.write(title + ',' + target_term + ',' + dem + ',' + \
+                    outfile.write(str(j) + ',' + title + ',' + target_term + ',' + dem + ',' + \
                                     word + ',' + token.pos_ + ',' + token.dep_ + '\n')
                     if prev_target_term in possible_marks and target_term in possible_marks:
                         if dem != word2dem[prev_target_term]:
-                            outfile.write(title + ',' + prev_target_term + ',' + word2dem[prev_target_term] + ',' + \
+                            outfile.write(str(j) + ',' + title + ',' + prev_target_term + ',' + word2dem[prev_target_term] + ',' + \
                                     word + ',' + token.pos_ + ',' + token.dep_ + '\n')
                 # named people
                 if token.head.ent_type_ == 'PERSON' and target_term in famous_people:
-                    outfile.write(title + ',' + target_term + ',named,' + \
+                    outfile.write(str(j) + ',' + title + ',' + target_term + ',named,' + \
                                 word + ',' + token.pos_ + ',' + token.dep_ + '\n')
             prev_word = word
 

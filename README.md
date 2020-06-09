@@ -25,6 +25,7 @@ pip install -r requirements.txt
 python -m spacy download en_core_web_sm  # install SpaCy models for English
 ```
 
+Our scripts were written for the studies described in our paper. It's likely you might be researching other research questions about other groups of people. For example, if you were analyzing differences in the descriptors of politicians pre-1850 and post-1850, you could run the files in our toolkit using a list of people terms categorized based on that comparison. Email us if you want some advice for your specific use case. 
 
 ## Data Format
 
@@ -68,9 +69,7 @@ An output file `people_mentions.csv` will be generated in the output directory. 
 * `demographic`: The demographic category. 
 * `count`: The number of terms belonging to that demographic in the given source text.
 
-TODO: the above script works for unigrams, but not yet for bigrams
-
-TODO: write a note about how this could be used for other types of inputs (e.g. non-people)
+The above script works for unigrams (single words), but not yet for bigrams (phrases). 
 
 ## Counting the Mentions of Named People 
 
@@ -108,17 +107,21 @@ This script will output `people_descriptors.csv` in the output directory, with t
 * `POS`: The part of speech tag for the word (ADJ or VERB).
 * `relation`: The dependency parsing relation
 
-Note that terms associated with multiple demographic categories would be listed multiple times. For example, "black woman" would be listed under both "black" and "women". 
+Note that terms associated with multiple demographic categories would be listed multiple times. For example, "black woman" would be listed under both "black" and "women". The verbs include those that the person is performing (nsubj) and those that are performed on the person (dobj). 
 
 The current implementation also obtains verbs and adjectives for named individuals, based on the output of the most popular named people of `count_names.py`. 
 
-## Log odds ratio (TODO: @lucy)
+## Log odds ratio 
 
-We can look at which words are significantly more associated with one group vs another group based on word counts (Monroe et al. 2009). Right now this script operates differently depending on whether your `--focus_group` is a gender or race/ethnicity. If you input a gender (e.g. `women`), that gender is compared against other genders and terms unmarked by gender. If you input a racial/ethnic group (e.g. `black`), it is compared against white people and terms unmarked by race/ethnicity. 
+We can look at which words are significantly more associated with one group vs another group based on word counts (Monroe et al. 2009). The `--group1` and `--group2` arguments are two groups of labels (comma separated) that you want to compare. For example, the command below compares common nouns referring to women with all other categories we have for common nouns. If a descriptor falls under multiple labels (cases of intersectionality), it is included in the first group but not the second. For example, the script handles words referring to women that are marked by ethnicity by not including them in the second group. 
 
 ```
-python run_log_odds.py --input_file results/people_descriptors.csv --output_dir results/ --focus_group women --people_terms wordlists/people_terms.csv
+python run_log_odds.py --input_file results/people_descriptors.csv --output_dir results/ --group1 women --group2 "men,other,other minority,white,black,hispanic/latinx" 
 ```
+
+The output file is `log_odds.txt` in the `results` folder.
+
+Note that you need quotation marks if the input argument has a space in it. 
 
 ## Power, Agency and Sentiment (TODO: @lucy)
 
