@@ -123,7 +123,7 @@ The output file is `log_odds.txt` in the `results` folder.
 
 Note that you need quotation marks if the input argument has a space in it. 
 
-## Power, Agency and Sentiment (TODO: @lucy)
+## Power, Agency and Sentiment 
 
 Using external lexicons to quantify the affective connotations of words associated with people. 
 
