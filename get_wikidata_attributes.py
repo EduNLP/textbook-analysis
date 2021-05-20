@@ -82,6 +82,8 @@ def main():
                 contents = line.strip().split(',')
                 count = contents[1]
                 entity = contents[0]
+                if entity in wikidata_dict:
+                    continue
                 if len(entity.split()) > 1: 
                     cands = retrieve_wikidata(entity) 
                     if len(cands) > 1: num_ambig += 1
@@ -96,12 +98,12 @@ def main():
                 outfile.write(entity + ',')
                 outfile.write(entry['name'] + ',')
                 outfile.write(entry['wikiID'] + ',')
-                if 'sex or gender' in entry: 
-                    outfile.write('|'.join(entry['sex or gender']) + ',')
-                else: 
-                    outfile.write('None,')
                 if 'ethnic group' in entry: 
                     outfile.write('|'.join(entry['ethnic group']) + ',')
+                else: 
+                    outfile.write('None,')
+                if 'sex or gender' in entry: 
+                    outfile.write('|'.join(entry['sex or gender']) + ',')
                 else: 
                     outfile.write('None,')
                 if 'occupation' in entry: 
