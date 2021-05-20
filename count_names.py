@@ -36,7 +36,9 @@ parser.add_argument('--redo_intermediates', default=False,
 args = parser.parse_args()
 
 def get_official_name(entity): 
-    entity = entity.replace("\"", "").replace("—", "").replace("\\","")
+    entity = entity.replace("\"", "").replace("—", "").replace("\\","").replace(",", "")
+    if entity.endswith("'s"):  # Remove possessives
+        entity = entity[:-2]
     entity = entity.strip()
     url_prefix = "https://query.wikidata.org/sparql?format=json&query="
     query = urllib.parse.quote("SELECT ?item ?itemLabel WHERE {" + \
