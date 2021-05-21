@@ -1,100 +1,435 @@
-Andrew Jackson,463
-Theodore Roosevelt,430
-Franklin Delano Roosevelt,403
-Richard Nixon,323
-Thomas Jefferson,304
-John F. Kennedy,283
-Harry S. Truman,269
-Ronald Reagan,255
-Woodrow Wilson,218
-Lyndon Johnson,167
-Dwight D. Eisenhower,149
-Bill Clinton,135
-George W. Bush,129
-Henry Clay,127
-George Washington,124
-James Madison,123
-John Adams,118
-Robert E. Lee,118
-Alexander Hamilton,117
-Abraham Lincoln,113
-Andrew Johnson,111
-John C. Calhoun,107
-Hitler,104
-Jimmy Carter,97
-Herbert Hoover,83
-John Brown,82
-William Jennings Bryan,81
-John Quincy Adams,66
-Polk,66
-Obama,64
-Jefferson Davis,61
-Smith,57
-Grant,56
-William Howard Taft,53
-Stalin,50
-John Marshall,48
-Patriot,44
-James Monroe,44
-Daniel Webster,43
-McKinley,42
-Sherman,36
-Martin Van Buren,35
-Benjamin Franklin,34
-Harding,34
-Martin Luther King Jr.,33
-Tyler,32
-Thomas Jefferson's,31
-Andrew Jackson's,31
-McClellan,31
-Burr,30
-Graham,30
-Taylor,30
-Woodrow Wilson's,30
-Henry Kissinger,30
-Loyalists,29
-Clark,29
-McCarthy,27
-George Washington's,26
-Whitman,26
-Frederick Douglass,25
-Douglas,25
-Ronald Reagan's,25
-Bill Clinton's,25
-Lewis,24
-Emerson,24
-Franklin Roosevelt's,24
-Robinson,24
-Kissinger,24
-Gorbachev,24
-Van Buren,23
-Thoreau,23
-Back,23
-Eleanor,23
-Winston Churchill,22
-Churchill,22
-John Jay,21
-g­,21
-Napoléon,21
-Scott,21
-J. Pierpont Morgan,21
-Debs,21
-Barry Goldwater,21
-North,20
-Hayes,20
-Garfield,20
-Barack Obama,20
-Alexander Hamilton's,19
-Stephen A. Douglas,19
-James Buchanan's,19
+Cahokia,5
+John White,6
+Isabella,6
+Ferdinand,5
+Alexander,6
+Martin Luther,5
+Luther,9
+John Calvin,6
+Henry,11
+Elizabeth,7
+Nuño de Guzman,6
+Gilbert,5
+Queen Elizabeth,20
+Metacomet,6
+White,5
+John Smith,10
 James,18
-Jane Addams,18
-Queen Elizabeth,17
+King Charles,9
+Oliver Cromwell,12
+Charles II,11
+James II,8
+Mary,14
+William,10
+Smith,57
+Pocahontas,6
+John Rolfe,5
+Thomas,5
+William Berkeley,13
+Nathaniel Bacon,7
+Calvert,13
+Baltimore,8
+Jesus,15
+Plymouth,12
+John Winthrop,8
+Anne Hutchinson,7
+Hutchinson,7
+Roger Williams,6
+Carolina,6
+John Locke,10
+Creeks,8
+Peter Stuyvesant,5
+Quakers,10
+Mary Dyer,6
+William Penn,14
+George II,8
+Paul Revere,5
+Benjamin Franklin,38
+George Washington,150
 Eliza,17
+Sarah,5
+Giles Corey,8
+Isaac Newton,6
+Thomas Jefferson,335
+Jonathan Edwards,6
+Edwards,16
+Bathsheba Kingsley,6
+Louis XIV of France,8
+George,14
+Mississippi Rivers,6
+George III,8
+George III of Great Britain,7
+George Grenville,6
+Patrick Henry,16
+John Adams,119
+Samuel Adams,6
+James Otis,5
+North,20
+Abigail Adams,6
+Lord North,5
+Mercy Otis Warren,11
+Loyalists,29
+Patriot,44
+Benedict Arnold,6
+Thomas Paine,11
+Preston,6
+Alexander Hamilton,136
+James Madison,125
+Montgomery,10
+William Howe,11
+Howe,8
+Lucy,5
+Burgoyne,7
+Clark,29
+Daniel Boone,5
+Cornwallis,5
+Brown,10
+Ferguson,12
+Greene,7
+Arnold,6
+John Jay,22
+John,8
+John Adams',14
+John Quincy Adams,68
+New Yorker,8
+William Lloyd Garrison,8
+Eliza Yonge Wilkinson,8
+James Monroe,46
+Jay,13
+hamilton,7
+Thomas Pinckney,8
+g­,21
+Aaron Burr,13
+Burr,30
+Henry Clay,137
+John Marshall,50
+Albert Gallatin,5
+Marbury,6
+Napoléon,21
+Andrew Jackson,500
+Lewis,24
+Virginian John Randolph,11
 Harrison,17
+John C. Calhoun,111
+Oliver Hazard Perry,6
+Lawrence,5
+David Crockett,9
+Sam Houston,7
+John Quincy Adams',8
+Nathaniel Hawthorne,16
+CHAPTER,7
+Stephen A. Douglas,19
+Daniel Webster,45
+Lowell,10
+Horace Mann,5
+Elizabeth Blackwell,6
+Benton,5
+Andrew,7
+Rachel,7
+Walt Whitman,10
+Martin Van Buren,35
+John Eaton,12
+Margaret O'Neill Eaton,10
+Removal Bill,5
+Van Buren,36
+Nicholas Biddle,16
+Hayne,9
+Abraham Lincoln,129
+Morgan,7
+Whig,6
+William Henry Harrison,19
+Martin Van Ruin,5
+John Tyler,15
+Whigs Jackson,6
+Harriet Beecher Stowe,17
+James Henry Hammond,15
+Hammond,11
+Mary Chesnut,15
+Frederick Douglass,25
+Northup,5
+Frederick Douglass',5
+Gabriel,5
+Vesey,7
+God,7
+Turner,7
+Nat Turner,5
+Peter Cartwright,13
+Lee,6
+Finney,5
+Ralph Waldo Emerson,12
+Henry David Thoreau,7
+Emerson,24
+Thoreau,23
+Martin Luther King Jr.,52
+Emily Dickinson,7
+Whitman,26
+Dorothea Dix,5
+Susan B. Anthony,6
+Mann,6
+Graham,30
+Ann Lee,5
+Arthur,14
+Uncle Tom,10
+Angelina Grimké,8
+Wells Brown,5
+Lovejoy,5
+John Brown,88
+Kelley,10
+Confederates,15
+George Donner,5
+James K. Polk,20
+Stephen Austin,6
+Travis,9
+Crockett,7
 Houston,17
-William McKinley,17
-John D. Rockefeller,17
-Theodore Roosevelt's,17
-Calvin Coolidge,17
+Tyler,32
+Polk,66
+James Buchanan,32
+James Polk,5
+Zachary Taylor,13
+Ulysses S. Grant,16
+Thomas Jackson,8
+James Longstreet,5
+Robert E. Lee,131
+William Tecumseh Sherman,16
+Taylor,30
+Kearny,6
+John C. Frémont,7
+Winfield Scott,5
+Scott,21
+S. Grant,5
+David Wilmot,5
+Horace Greeley,6
+Jefferson Davis,63
+William H. Seward,11
+Douglas,25
+Fillmore,6
+Franklin Pierce,7
+Charles Sumner,7
+Sumner,12
+Brooks,5
+Buchanan,12
+Dred Scott,8
+Israel Green,5
+John Wilkes Booth,5
+Fort Sumter,5
+Robert Anderson,6
+Jefferson Davis',10
+Alexander Stephens,5
+Charles Biddlecom,10
+Sullivan Ballou,7
+Grant,56
+Sherman,36
+Edmund Kirby Smith,6
+McClellan,31
+Pope,11
+Clara Barton,5
+Thaddeus Stevens,6
+Andrew Johnson,109
+John Futch,6
+John Bell Hood,11
+Hood,6
+John Sherman,6
+Henry Adams,7
+Martin Delaney,6
+Ross,5
+Mary McLeod Bethune,5
+Charles Brown,5
+James Garfield,6
+Greeley,6
+James G. Blaine,6
+Hayes,20
+Rutherford B. Hayes,14
+William McKinley,18
+William Jennings Bryan,85
+Andrew Carnegie,17
+J. P. Morgan,6
+Alexander Graham Bell,9
+Thomas Alva Edison,21
+John D. Rockefeller,24
+J. Pierpont Morgan,26
+Richard Sears,5
+Josiah Strong,5
+Charlotte Perkins Gilman,6
+Jane Addams,19
+Mary Harris Jones,6
+Theodore Roosevelt,447
+Samuel Gompers,6
+Pullman,6
+Eugene V. Debs,5
+Debs,21
+Grover Cleveland,18
+Jim Crow,10
+Washington Duke,6
+Benjamin Tillman,5
+Henry Smith,6
+Waddell,5
+Richard Wright,9
+Ida B. Wells,14
+Ida B. Wells',6
+Booker T. Washington,19
+W.E.B. Du Bois,14
+Benjamin Pap Singleton,7
+Philip Armour,5
+Spotted Tail,5
+Chivington,5
+Soule,7
+Wounded Knee,5
+Woodrow Wilson,249
+Charles Darwin,12
+Darwin,8
+Spencer,14
+i­,5
+Benjamin Harrison,9
+William Howard Taft,56
+Chester A. Arthur,5
+Garfield,20
+Guiteau,5
+McKinley,42
+Franklin Delano Roosevelt,434
+Henry Cabot Lodge,6
+Lodge,6
+Mahan,6
+William Randolph Hearst,6
+Dewey,12
+Aguinaldo,5
+Bill Clinton,160
+John Hay,7
+Teedie Roosevelt,9
+Starr,7
+Reelection Roosevelt,9
+Alton B. Parker,5
+Paul,8
+Brandeis,5
+Progressivism Wilson,5
+House,7
+Herbert Hoover,89
+David Barkley Hernandez,5
+Lenin,13
+Adolf Hitler,15
+Back,23
+Warren G. Harding,18
+Calvin Coolidge,18
+Winston Churchill,24
+F. Scott Fitzgerald,12
+Henry Ford,6
+Ruth,5
+Fitzgerald,6
+Zora Neale Hurston,15
+Marcus Garvey,9
+Albert Einstein,8
+Einstein,12
+Stein,5
+T. S. Eliot,5
+Ernest Hemingway,7
+Sacco,6
+Klan,14
+Stephenson,6
+Darrow,12
+Harding,34
+Andrew W. Mellon,5
+Andrew Mellon,8
+Douglas MacArthur,9
+Eleanor,23
+Delano Roosevelt,10
+Henry A. Wallace,9
+Eleanor Roosevelt,15
+Joseph Stalin,8
+Wright,13
+Huey Long,6
+Long,8
+Townsend,7
+Lyndon B. Johnson,23
+Richard M. Nixon,11
+Benito Mussolini,9
 Mussolini,17
+Hitler,104
+Mao Zedong,6
+Churchill,22
+Stalin,50
+Dwight D. Eisenhower,151
+Sammy,5
+Ike,6
+Harry S. Truman,274
+Lyndon Johnson,187
+Richard Nixon,333
+Osama bin Laden,15
+George W. Bush,94
+Saddam Hussein,25
+Barack Obama,25
+Kennan,13
+George Marshall,6
+George Kennan,5
+Jack Roosevelt Jackie Robinson,20
+Robinson,24
+Garcia,7
+Hubert Humphrey,6
+Wallace,11
+­NSC-68,5
+Dean Acheson,6
+Joseph McCarthy,5
+Hiss,11
+Joseph R. McCarthy,11
+McCarthy,27
+Stevenson,7
+Kerouac,5
+Alan Freed,6
+Phillips,5
+Warren,7
+Rosa Parks,5
+King,14
+Nasser,10
+Nikita Khrushchev,10
+Khrushchev,7
+Fidel Castro,11
+John F. Kennedy,294
+Malcolm X,11
+Robert F. Kennedy,7
+John Kennedy,8
+Robert McNamara,5
+George Wallace,7
+Stokely Carmichael,7
+Malcolm,17
+Barry Goldwater,22
+Ronald Reagan,283
+Eugene McCarthy,5
+Bobby Kennedy,16
+Robert Kennedy,16
+Spiro Agnew,5
+Henry Kissinger,35
+Bob Dylan,6
+Mark Rudd,8
+Betty Friedan,5
+Cesar Chavez,6
+Chavez,7
+Kissinger,24
+Allende,5
+George McGovern,5
+Bob Haldeman,6
+Gerald Ford,20
+Carter,10
+Jimmy Carter,104
+George H. W. Bush,59
+James (Jimmy,5
+Earl Carter Jr.,6
+carter,5
+Sandra Day O'Connor,6
+Walter Mondale,9
+Mikhail Gorbachev,5
+Gorbachev,24
+Yeltsin,6
+Manuel Noriega,11
+George Bush,6
+William Jefferson Clinton,12
+Hillary Clinton,10
+Al Gore,5
+Obama,64
+Gingrich,12
+Bob Dole,8
+Lewinsky,7
+Gore,6
+Cheney,7
+Gaddafi,5
+Romney,8
+Vladimir Putin,5
+Putin,6
