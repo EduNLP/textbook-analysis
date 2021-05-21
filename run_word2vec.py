@@ -27,7 +27,7 @@ stopwords = set(stopwords.words('english'))
 
 def get_sentences(book):
     sents = nltk.sent_tokenize(book)
-    return [clean_text(s, stem=args.stem, remove_stopwords=False) for s in sents]
+    return [clean_text(s, stem=args.stem, remove_stopwords=False, remove_short=False) for s in sents]
 
 def run_on_all_books(books, bootstrap=True):
     """Runs word2vec training on data.
