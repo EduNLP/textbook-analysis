@@ -37,6 +37,9 @@ args = parser.parse_args()
 
 def get_official_name(entity): 
     entity = entity.replace("\"", "").replace("—", "").replace("\\","")
+    if entity.endswith("'s"):  # Remove possessives
+        entity = entity[:-2]
+    entity = entity.split(",")[0] # Only consider what's before commas
     entity = entity.strip()
     url_prefix = "https://query.wikidata.org/sparql?format=json&query="
     query = urllib.parse.quote("SELECT ?item ?itemLabel WHERE {" + \
