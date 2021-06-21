@@ -13,9 +13,14 @@ parser.add_argument('--people_terms', required=True)
 
 args = parser.parse_args()
 
+def update_dict(dem_dict, word2dem, word): 
+    for cat in word2dem[word]: 
+        dem_dict[cat] += 1
+    return dem_dict
+
 def main():
     possible_marks, not_marks = split_terms_into_sets(args.people_terms)
-    word2dem = get_word_to_category(args.people_terms)
+    word2dem = get_word_to_category(args.people_terms) 
 
     # load spacy
     nlp = spacy.load("en_core_web_sm")
@@ -34,21 +39,27 @@ def main():
                 prev_word = None
                 for token in doc: 
                     word = token.text.lower()
+                    if word == 'democrat': 
+                        print(prev_word, word)
                     # only look at nouns
                     if token.pos_ != 'PROPN' and \
                         token.pos_ != 'NOUN' and token.pos_ != 'PRON': continue
                     if word in possible_marks:
-                        dem_dict[word2dem[word]] += 1
+                        #dem_dict[word2dem[word]] += 1
+                        update_dict(dem_dict, word2dem, word)
                         if prev_word in possible_marks:
                             # count previous word as well
                             # e.g. "black women"
-                            dem_dict[word2dem[prev_word]] += 1
+                            #dem_dict[word2dem[prev_word]] += 1
+                            update_dict(dem_dict, word2dem, prev_word)
                     elif word in not_marks:
                         if prev_word not in possible_marks: 
-                            dem_dict[word2dem[word]] += 1
+                            #dem_dict[word2dem[word]] += 1
+                            update_dict(dem_dict, word2dem, word)
                         else: 
                             # count previous word but not unmarked word
-                            dem_dict[word2dem[prev_word]] += 1
+                            #dem_dict[word2dem[prev_word]] += 1
+                            update_dict(dem_dict, word2dem, prev_word)
                     prev_word = word
             for demographic in dem_dict: 
                 f.write(title + ',' + demographic + ',' + str(dem_dict[demographic]) + '\n')

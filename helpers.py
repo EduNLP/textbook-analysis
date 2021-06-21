@@ -8,6 +8,7 @@ import nltk
 import re
 from gensim.models import KeyedVectors
 import seaborn as sns
+from collections import defaultdict
 
 stopwords = open("wordlists/stopwords/en/mallet.txt", "r").read().splitlines()
 punct_chars = list((set(string.punctuation) | {'»', '–', '—', '-',"­", '\xad', '-', '◾', '®', '©','✓','▲', '◄','▼','►', '~', '|', '“', '”', '…', "'", "`", '_', '•', '*', '■'} - {"'"}))
@@ -33,11 +34,14 @@ def split_terms_into_sets(people_terms_path):
     return possible_marks, not_marks
 
 def get_word_to_category(people_terms_path): 
-    word2dem = {}
+    '''
+    word2dem = {'bridesmaid':['women'], 'latina': ['women', 'latinx']}
+    '''
+    word2dem = defaultdict(list)
     with open(people_terms_path, 'r') as infile: 
         for line in infile: 
             contents = line.strip().split(',')
-            word2dem[contents[0]] = contents[1]
+            word2dem[contents[0]].append(contents[1])
     return word2dem
 
 def clean_text(text,

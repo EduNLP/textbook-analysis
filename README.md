@@ -53,7 +53,7 @@ python count_mentions.py --input_dir data/coref_resolved_txts --output_dir resul
 
 We include a `people_terms.csv` file in `wordlists`, but you can replace it with your own file. The format of this file should be the following: it should have 3 columns separated by a comma, the first including a word / phrase referring to people (lowercase), the second should be the demographic group that the word / phrase belongs to, and the third is the type of demographic. If a word belongs to multiple demographic groups, then add that as a separate line. For example:
 
-> maid,woman,gender
+> bridesmaid,woman,gender
 
 > african,black,race/ethnicity
 

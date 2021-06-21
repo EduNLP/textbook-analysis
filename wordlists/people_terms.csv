@@ -110,7 +110,6 @@ perce,other minority,race/ethnicity
 choctaw,other minority,race/ethnicity
 navajo,other minority,race/ethnicity
 anasazi,other minority,race/ethnicity
-iroquois,other minority,race/ethnicity
 comanche,other minority,race/ethnicity
 cherokee,other minority,race/ethnicity
 dakota,other minority,race/ethnicity
@@ -155,16 +154,13 @@ hurons,other minority,race/ethnicity
 cheyennes,other minority,race/ethnicity
 mandans,other minority,race/ethnicity
 algonquians,other minority,race/ethnicity
-sauk,other minority,race/ethnicity
 puebloans,other minority,race/ethnicity
 powhatans,other minority,race/ethnicity
 mohicans,other minority,race/ethnicity
 arapahos,other minority,race/ethnicity
-hopi,other minority,race/ethnicity
 apaches,other minority,race/ethnicity
 aztecs,other minority,race/ethnicity
 seminoles,other minority,race/ethnicity
-sioux,other minority,race/ethnicity
 perces,other minority,race/ethnicity
 choctaws,other minority,race/ethnicity
 navajos,other minority,race/ethnicity
@@ -303,6 +299,7 @@ grandmother,women,gender
 cowgirl,women,gender
 bridesmaid,women,gender
 lesbian,women,gender
+latina,women,gender
 flapper,women,gender
 women,women,gender
 wives,women,gender
