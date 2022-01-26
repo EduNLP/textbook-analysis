@@ -29,7 +29,7 @@ Our scripts were written for the studies described in our paper. It's likely you
 
 ## Data Format
 
-First, prepare your data such that each textbook is in a separate text file (simple `.txt`), in the same directory. Perform any clean-ups that you think might be necessary (e.g. removing characters that you do not want, remove short lines, etc.).
+First, prepare your data such that each textbook is in a separate text file (simple `.txt`), in the same directory. Perform any clean-ups that you think might be necessary (e.g. removing characters that you do not want, remove short lines, etc.). Try to ensure complete sentences are on the same line; in some cases, digitization may split sentences across lines, and removing paratext (e.g. table of contents, glossaries, index) can help the analysis focus on the main content. 
 
 # Counting the Mentions of People
 
