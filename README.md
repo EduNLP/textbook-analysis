@@ -69,7 +69,7 @@ An output file `people_mentions.csv` will be generated in the output directory. 
 * `demographic`: The demographic category. 
 * `count`: The number of terms belonging to that demographic in the given source text.
 
-The above script works for unigrams (single words), but not yet for bigrams (phrases). 
+The above script works for unigrams (single words), but not yet for bigrams or trigrams (phrases). If a word contains a '-' (e.g. Asian-American), it is considered a trigram. We are hoping to offer broader support for this in the future. 
 
 ## Counting the Mentions of Named People 
 
