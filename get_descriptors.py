@@ -123,9 +123,10 @@ def main():
     nlp.add_pipe(merge_entities)
     # load books
     books = get_book_txts(args.input_dir, splitlines=True)
+    res = []
     for title, textbook_lines in books.items():
-        res = run_depparse(possible_marks, word2dem, famous_people, 
-            textbook_lines, title, nlp)
+        res.extend(run_depparse(possible_marks, word2dem, famous_people, 
+            textbook_lines, title, nlp))
     outfile = codecs.open(os.path.join(args.output_dir, 'people_descriptors.csv'), 'w', encoding='utf-8')
     for tup in res: 
         if type(tup[3]) == list or type(tup[3]) == set: 
