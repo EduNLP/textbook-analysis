@@ -295,7 +295,7 @@ def main():
                                         num_topics))
 
 
-    # load mallet outputs
+    # load mallet outputs (threshold for keeping a topic = 0.1)
     articles, vocab, topic_names = load_articles(all_text, output_dir, threshold=.1)
     save_topic_names = '%s/topic_names.json' % output_dir
     with open(save_topic_names, 'w') as f:
