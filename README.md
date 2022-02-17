@@ -14,7 +14,7 @@ cd textbook-analysis
 Create and activate virtual environment:
 
 ```
-virtualenv -p python3 env
+python3 -m venv env
 source env/bin/activate
 ```
 
