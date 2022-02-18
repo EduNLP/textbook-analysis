@@ -208,6 +208,7 @@ def main():
         with open(args.output_dir + 'lexicon_output.csv', 'w') as outfile:
             fieldnames = ['category', 'dimension', 'mean', 'ci']
             writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+            writer.writeheader()
             write_output(writer, power_df, 'power')
             write_output(writer, agen_df, 'agency')
             write_output(writer, sent_df, 'sentiment')
