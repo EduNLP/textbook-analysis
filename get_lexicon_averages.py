@@ -100,14 +100,14 @@ def calculate_scores(agencies, powers, val_dict, aro_dict, \
     adj = {'Category' : [], 'Measurement' : [], 'Value' : [], 'Word' : []}
     sent_d = {'Category' : [], 'Value': [], 'Word' : []}
     with open(args.input_file, 'r') as infile: 
-        for line in infile:
-            contents = line.strip().split(',')
-            ID = contents[0]
-            title = contents[1]
-            category = contents[3]
-            word = contents[4]
-            pos = contents[5]
-            relation = contents[6]
+        reader = csv.DictReader(infile)
+        for row in reader: 
+            ID = row['token_ID']
+            title = row['filename']
+            category = row['category']
+            word = row['word']
+            pos = row['POS']
+            relation = row['rel']
             if pos == 'VERB' and relation == 'nsubj':
                 # Connotation frames
                 word = WordNetLemmatizer().lemmatize(word, 'v')
