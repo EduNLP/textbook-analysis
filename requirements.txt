@@ -1,7 +1,7 @@
 csvtomd==0.3.0
 gensim==4.1.2
 neuralcoref==4.0
-nltk==3.4.5
+nltk==3.6.6
 numpy==1.18.1
 pandas==1.0.1
 scipy==1.4.1
