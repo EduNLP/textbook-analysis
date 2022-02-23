@@ -10,7 +10,6 @@ from gensim.models import KeyedVectors
 import seaborn as sns
 from collections import defaultdict
 
-stopwords = open("wordlists/stopwords/en/mallet.txt", "r").read().splitlines()
 punct_chars = list((set(string.punctuation) | {'»', '–', '—', '-',"­", '\xad', '-', '◾', '®', '©','✓','▲', '◄','▼','►', '~', '|', '“', '”', '…', "'", "`", '_', '•', '*', '■'} - {"'"}))
 punct_chars.sort()
 punctuation = ''.join(punct_chars)
@@ -48,7 +47,8 @@ def clean_text(text,
                remove_stopwords=True,
                remove_numeric=True,
                stem=False,
-               remove_short=True):
+               remove_short=True,
+               stopwords_file="wordlists/stopwords/en/mallet.txt"):
     # lower case
     text = text.lower()
     # eliminate urls
@@ -63,6 +63,7 @@ def clean_text(text,
     text = ''.join([c for c in text if c in printable])
     words = text.split()
     if remove_stopwords:
+        stopwords = open(stopwords_file, "r").read().splitlines()
         words = [w for w in words if w not in stopwords]
     if remove_numeric:
         words = [w for w in words if not w.isdigit()]
