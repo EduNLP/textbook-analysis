@@ -30,6 +30,8 @@ Our scripts were written for the studies described in our paper. It's likely you
 For tutorials:
 
 ```
+conda deactivate # deactivate the base (needed for new Macs)
+pip install jupyter
 python -m ipykernel install --user --name='env'
 jupyter notebook
 ```
