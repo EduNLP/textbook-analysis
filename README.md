@@ -140,7 +140,7 @@ We use two lexicons in our paper.
 
 The first, the [NRC valence, arousal and dominance (VAD) lexicon](https://saifmohammad.com/WebPages/nrc-vad.html) contains a more than 20,000 English words. Download the zip file on their website and unzip it. Scores for words can be found in `NRC-VAD-Lexicon.txt` in the unzipped folder. You will want to add a line to the top of the file that says "Word Valence Arousal Dominance", where each word is separated by a tab. This allows our reader to use the file. 
 
-The second, the [Connotation Frames dataset](https://homes.cs.washington.edu/~hrashkin/connframe.html) and [Power and Agency](https://homes.cs.washington.edu/~msap/movie-bias/) frames. Click on the `Full Labelled English Connotation Frame Data Set` link in the first link and the `download the verbs` link in the second. Once these downloads are unzipped, sentiment frames can be found in the file labeled `full_frame_info.txt` and agency and power frames are in the file `agency_power.csv`. 
+The second, the [Connotation Frames dataset](https://homes.cs.washington.edu/~hrashkin/connframe.html) and [Power and Agency](https://maartensap.com/connotation-frames/) frames. Click on the `Full Labelled English Connotation Frame Data Set` link in the first link and the `download the verbs` link in the second. Once these downloads are unzipped, sentiment frames can be found in the file labeled `full_frame_info.txt` and agency and power frames are in the file `agency_power.csv`. 
 
 Place these three lexicons (`full_frame_info.txt`, `NRC-VAD-Lexicon.txt`, and `agency_power.csv`) in the `wordlists` folder. 
 
